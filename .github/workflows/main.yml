@@ -20,4 +20,4 @@ jobs:
         with:
           project: Goods For you
           column: In Review
-          repo-token: ${{ secrets.GOODS_FOR_YOU }}
+          repo-token: ${{ secrets.GOODSFORYOU_TOKEN }}
