@@ -1,0 +1,23 @@
+/.idea/
+
+## Java ###
+# 컴파일된 클래스 파일
+*.class
+
+# 로그 파일
+*.log
+
+# 패키지 파일
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
