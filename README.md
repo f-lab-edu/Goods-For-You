@@ -34,4 +34,6 @@ K-POP 스타뿐만 아니라 인플루언서 및 스포츠스타들의 굿즈 �
 
 ![0105114308696542](https://user-images.githubusercontent.com/76669404/210689539-a5b3d9ea-cfbb-4e52-b17e-0c0a12c3f5f9.jpg)
 
+## 유즈 케이스
 
+- 프로젝트를 진행하면서 작성한 [유즈 케이스](https://github.com/f-lab-edu/Goods-For-You/wiki/%EC%9C%A0%EC%A6%88-%EC%BC%80%EC%9D%B4%EC%8A%A4) 입니다
