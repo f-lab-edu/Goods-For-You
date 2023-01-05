@@ -30,6 +30,8 @@ K-POP 스타뿐만 아니라 인플루언서 및 스포츠스타들의 굿즈 �
 
 ## 프로젝트 화면 구성
 
-![0102222455410555](https://user-images.githubusercontent.com/76669404/210237397-b06a272c-782c-4bc0-b4fe-fba2b9398dbd.jpg)
+- 카카오 오븐으로 구성한 화면 프로토 타입입니다 상세한 내용은 [Wiki](https://github.com/f-lab-edu/Goods-For-You/wiki/%ED%99%94%EB%A9%B4-%ED%94%84%EB%A1%9C%ED%86%A0-%ED%83%80%EC%9E%85)를 참고해주세요
+
+![0105114308696542](https://user-images.githubusercontent.com/76669404/210689539-a5b3d9ea-cfbb-4e52-b17e-0c0a12c3f5f9.jpg)
 
 
