@@ -41,7 +41,7 @@ class NewUserManagementTest {
 	 */
 	@Nested
 	@DisplayName("joinUser 메소드는")
-	class joinUser_of {
+	class Describe_joinUser {
 		@Test
 		@DisplayName("validator를 1번 호출하고")
 		void executeValidator_whenJoinUserIsValid() {
