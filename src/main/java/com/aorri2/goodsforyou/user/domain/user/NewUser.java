@@ -1,4 +1,6 @@
-package com.aorri2.goodsforyou.user.domain;
+package com.aorri2.goodsforyou.user.domain.user;
+
+import com.aorri2.goodsforyou.user.domain.User;
 
 public class NewUser implements User {
 	private final String email;

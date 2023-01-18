@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.aorri2.goodsforyou.user.domain.policy.NewUserEmailPolicy;
+
 @DisplayName("NewUserEmailPolicy 클래스")
 class NewUserEmailPolicyTest {
 

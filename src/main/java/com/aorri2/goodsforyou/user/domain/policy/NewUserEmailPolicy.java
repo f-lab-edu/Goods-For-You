@@ -1,4 +1,8 @@
-package com.aorri2.goodsforyou.user.domain;
+package com.aorri2.goodsforyou.user.domain.policy;
+
+import com.aorri2.goodsforyou.user.domain.User;
+import com.aorri2.goodsforyou.user.domain.UserFinder;
+import com.aorri2.goodsforyou.user.domain.UserPolicy;
 
 public class NewUserEmailPolicy implements UserPolicy {
 

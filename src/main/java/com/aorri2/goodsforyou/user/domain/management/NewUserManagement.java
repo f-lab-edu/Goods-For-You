@@ -1,4 +1,9 @@
-package com.aorri2.goodsforyou.user.domain;
+package com.aorri2.goodsforyou.user.domain.management;
+
+import com.aorri2.goodsforyou.user.domain.User;
+import com.aorri2.goodsforyou.user.domain.UserCreator;
+import com.aorri2.goodsforyou.user.domain.UserManagement;
+import com.aorri2.goodsforyou.user.domain.UserValidator;
 
 public class NewUserManagement implements UserManagement {
 
