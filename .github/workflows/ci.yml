@@ -47,7 +47,7 @@ jobs:
         if: always()
         with:
           title: 📝 테스트 커버리지 리포트입니다
-          paths: ${{ github.workspace }}/backend/build/reports/jacoco/test/jacocoTestReport.xml
+          paths: '${{ github.workspace }}/build/test-results/test/binary/TEST-*.xml'
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 80
           min-coverage-changed-files: 80
