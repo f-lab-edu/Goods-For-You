@@ -34,15 +34,13 @@ jobs:
       - name: run gradle build
         run: ./gradlew build
         
-      - name: Spell Check with Typos
-        uses: crate-ci/typos@master
-        
-          
-      - name: add test result in pull request comments
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
+      - name: Spell Check with CheckSpelling
+        uses: check-spelling/check-spelling@v0.0.21
         with:
-          files: '**/build/test-results/test/TEST-*.xml'    
+          GITHUB_TOKEN: ${{ github.token }}
+          experimental_path: ./src
+          
+        
         
       - name: register test coverage as a comment in PR
         id: jacoco
