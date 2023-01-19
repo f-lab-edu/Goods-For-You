@@ -36,8 +36,7 @@ jobs:
         
       - name: Spell Check with Typos
         uses: crate-ci/typos@master
-        with:
-          files: '**/src/*'
+        
           
       - name: add test result in pull request comments
         uses: EnricoMi/publish-unit-test-result-action@v1
