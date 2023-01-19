@@ -34,13 +34,12 @@ jobs:
       - name: run gradle build
         run: ./gradlew build
         
-      - name: Spell Check with CheckSpelling
-        uses: check-spelling/check-spelling@v0.0.21
+      - name: add typos-action as check spell
+        uses: crate-ci/typos@v1.0.4
         with:
-          GITHUB_TOKEN: ${{ github.token }}
-          experimental_path: ./src
-          
+          files: src/**/*.java
         
+                 
         
       - name: register test coverage as a comment in PR
         id: jacoco
