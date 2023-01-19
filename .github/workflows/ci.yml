@@ -37,13 +37,14 @@ jobs:
       - name: add typos-action as check spell
         uses: crate-ci/typos@v1.0.4
         with:
-          files: src/**/*.java
+          files: 'src/**/*.java'
         
                  
         
       - name: register test coverage as a comment in PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.2
+        if: always()
         with:
           title: 📝 테스트 커버리지 리포트입니다
           paths: ${{ github.workspace }}/build/test-results/test/binary/TEST-*.xml
