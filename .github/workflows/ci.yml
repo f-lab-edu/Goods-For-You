@@ -1,0 +1,60 @@
+name: 굿즈포유 CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: get repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{secrets.GOODSFORYOU_TOKEN}}
+          submodules: recursive
+
+      - name: install JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: grant permission to execute gradle command
+        run: chmod +x gradlew
+
+      - name: run gradle build
+        run: ./gradlew build
+
+      - name: add typos-action as check spell
+        uses: crate-ci/typos@v1.0.4
+        with:
+          files: 'src/**'
+
+
+
+      - name: register test coverage as a comment in PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.2
+        if: always()
+        with:
+          title: 📝 테스트 커버리지 리포트입니다
+          paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 80
+          min-coverage-changed-files: 80
+
+      - name: if test fail, add check comment on failed code line
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: '**/build/test-results/test/binary/TEST-*.xml'
+          token: ${{ github.token }}
