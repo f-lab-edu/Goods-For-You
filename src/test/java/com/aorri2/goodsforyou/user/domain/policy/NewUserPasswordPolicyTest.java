@@ -1,25 +1,23 @@
 package com.aorri2.goodsforyou.user.domain.policy;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 
 import com.aorri2.goodsforyou.user.domain.User;
+import com.aorri2.goodsforyou.user.domain.user.NewUser;
 
 @DisplayName("NewUserPasswordPolicyTest 클래스")
 class NewUserPasswordPolicyTest {
-	@InjectMocks
+
 	NewUserPasswordPolicy policy;
 
 	@BeforeEach
 	void setUp() {
-		MockitoAnnotations.openMocks(this);
+		policy = new NewUserPasswordPolicy();
 	}
 
 	@Nested
@@ -32,8 +30,7 @@ class NewUserPasswordPolicyTest {
 			@Test
 			@DisplayName("RuntimeException을 던진다")
 			void it_throws_RuntimeException() {
-				User user = mock(User.class);
-				when(user.password()).thenReturn("12344");
+				User user = new NewUser("wook@naver.com", "wook", "123123");
 
 				assertThatThrownBy(() -> policy.apply(user)).isInstanceOf(RuntimeException.class);
 			}

@@ -1,29 +1,32 @@
-package com.aorri2.goodsforyou.user.domain;
+package com.aorri2.goodsforyou.user.domain.policy;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import com.aorri2.goodsforyou.user.domain.policy.NewUserEmailPolicy;
+import com.aorri2.goodsforyou.user.domain.MemoryUserRepository;
+import com.aorri2.goodsforyou.user.domain.NewUserFinder;
+import com.aorri2.goodsforyou.user.domain.User;
+import com.aorri2.goodsforyou.user.domain.UserFinder;
+import com.aorri2.goodsforyou.user.domain.UserRepository;
+import com.aorri2.goodsforyou.user.domain.user.NewUser;
 
 @DisplayName("NewUserEmailPolicy 클래스")
 class NewUserEmailPolicyTest {
 
-	@Mock
 	UserFinder finder;
-	@InjectMocks
+
 	NewUserEmailPolicy policy;
+
+	UserRepository userRepository;
 
 	@BeforeEach
 	void setUp() {
-		MockitoAnnotations.openMocks(this);
+		userRepository = new MemoryUserRepository();
+		finder = new NewUserFinder(userRepository);
 		policy = new NewUserEmailPolicy(finder);
 	}
 
@@ -34,12 +37,19 @@ class NewUserEmailPolicyTest {
 		@Nested
 		@DisplayName("만약 유저의 이메일이 존재한다면")
 		class Context_with_emailAlreadyExist {
+			User user;
+
+			@BeforeEach
+			void setUp() {
+				user = new NewUser("wook@naver.com", "wook", "123123");
+				userRepository.save(user);
+			}
+
 			@Test
 			@DisplayName("RuntimeException을 던진다")
 			void it_throws_RuntimeException() {
-				User user = mock(User.class);
-				when(user.email()).thenReturn("test");
-				when(finder.findByEmail(user.email())).thenReturn(user);
+
+				User user = new NewUser("wook@naver.com", "wook", "123123");
 
 				assertThatThrownBy(() -> policy.apply(user))
 					.isInstanceOf(RuntimeException.class);
@@ -48,13 +58,10 @@ class NewUserEmailPolicyTest {
 			@Test
 			@DisplayName("이미 존재하는 이메일 입니다라는 에러 메시지를 가진다")
 			void it_has_customErrorMessage() {
-				User user = mock(User.class);
-				UserPolicy policy = spy(UserPolicy.class);
-				try {
-					policy.apply(user);
-				} catch (RuntimeException e) {
-					assertThat(e.getMessage()).isEqualTo("이미 존재하는 이메일 입니다.");
-				}
+				User user = new NewUser("wook@naver.com", "wook", "123123");
+
+				assertThatThrownBy(() -> policy.apply(user))
+					.isInstanceOf(RuntimeException.class).hasMessage("이미 존재하는 이메일 입니다.");
 			}
 
 		}
