@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.aorri2.goodsforyou.user.application.NewUserCreator;
+import com.aorri2.goodsforyou.user.infrastructure.UserRepositoryAdapter;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("NewUserCreator 클래스")
@@ -15,12 +16,15 @@ class NewUserCreatorTest {
 
 	MemoryUserRepository memoryUserRepository;
 
+	UserRepositoryPort userRepositoryPort;
+
 	NewUserCreator newUserCreator;
 
 	@BeforeEach
 	void setUp() {
 		memoryUserRepository = new MemoryUserRepository();
-		newUserCreator = new NewUserCreator(memoryUserRepository);
+		userRepositoryPort = new UserRepositoryAdapter(memoryUserRepository);
+		newUserCreator = new NewUserCreator(userRepositoryPort);
 	}
 
 	@Nested

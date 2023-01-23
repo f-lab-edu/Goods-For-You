@@ -12,6 +12,7 @@ import com.aorri2.goodsforyou.user.domain.NewUserFinder;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
+import com.aorri2.goodsforyou.user.infrastructure.UserRepositoryAdapter;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("NewUserEmailPolicy 클래스")
@@ -23,9 +24,12 @@ class NewUserEmailPolicyTest {
 
 	UserRepositoryPort userRepositoryPort;
 
+	MemoryUserRepository memoryUserRepository;
+
 	@BeforeEach
 	void setUp() {
-		userRepositoryPort = new MemoryUserRepository();
+		memoryUserRepository = new MemoryUserRepository();
+		userRepositoryPort = new UserRepositoryAdapter(memoryUserRepository);
 		finder = new NewUserFinder(userRepositoryPort);
 		policy = new NewUserEmailPolicy(finder);
 	}

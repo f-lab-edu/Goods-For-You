@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.aorri2.goodsforyou.user.application.NewUserCreator;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
 import com.aorri2.goodsforyou.user.application.facade.NewUserManagement;
+import com.aorri2.goodsforyou.user.infrastructure.UserRepositoryAdapter;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("NewUserManagement 클래스")
@@ -17,20 +18,23 @@ class NewUserManagementTest {
 
 	UserValidator validator;
 	UserCreator creator;
+	UserFinder finder;
 	UserManagement userManagement;
+	UserRepositoryPort userRepositoryPort;
 	MemoryUserRepository userRepository;
 
 	@BeforeEach
 	void setUp() {
 
 		userRepository = new MemoryUserRepository();
+		userRepositoryPort = new UserRepositoryAdapter(userRepository);
 		userRepository.clear();
 
-		UserCreator userCreator = new NewUserCreator(userRepository);
-		UserFinder userFinder = new NewUserFinder(userRepository);
-		UserValidator userValidator = new NewUserValidator(userFinder);
+		creator = new NewUserCreator(userRepositoryPort);
+		finder = new NewUserFinder(userRepositoryPort);
+		validator = new NewUserValidator(finder);
 
-		userManagement = new NewUserManagement(userCreator, userValidator);
+		userManagement = new NewUserManagement(creator, validator);
 	}
 
 	/**

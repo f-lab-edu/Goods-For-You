@@ -1,12 +1,9 @@
 package com.aorri2.goodsforyou.user.infrastructure;
 
-import org.springframework.stereotype.Component;
-
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
-@Component
 public class UserRepositoryAdapter implements UserRepositoryPort {
 
 	private final MemoryUserRepository userRepository;

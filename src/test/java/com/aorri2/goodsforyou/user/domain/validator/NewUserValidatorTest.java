@@ -20,6 +20,7 @@ import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserEmailPolicy;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserNamePolicy;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserPasswordPolicy;
+import com.aorri2.goodsforyou.user.infrastructure.UserRepositoryAdapter;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("NewUserValidator 클래스")
@@ -31,13 +32,15 @@ class NewUserValidatorTest {
 
 	UserFinder userFinder;
 	UserRepositoryPort userRepositoryPort;
+	MemoryUserRepository memoryUserRepository;
 
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
 		validityPolicyList = List.of(new NewUserEmailPolicy(userFinder), new NewUserNamePolicy(userFinder),
 			new NewUserPasswordPolicy());
-		userRepositoryPort = new MemoryUserRepository();
+		memoryUserRepository = new MemoryUserRepository();
+		userRepositoryPort = new UserRepositoryAdapter(memoryUserRepository);
 		userFinder = new NewUserFinder(userRepositoryPort);
 		validator = new NewUserValidator(userFinder);
 	}
