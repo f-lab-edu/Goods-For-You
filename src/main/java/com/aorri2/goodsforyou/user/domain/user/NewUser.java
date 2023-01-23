@@ -3,6 +3,7 @@ package com.aorri2.goodsforyou.user.domain.user;
 import com.aorri2.goodsforyou.user.domain.User;
 
 public class NewUser implements User {
+	private Long id;
 	private final String email;
 	private final String name;
 	private final String password;
@@ -11,6 +12,11 @@ public class NewUser implements User {
 		this.email = email;
 		this.name = name;
 		this.password = password;
+	}
+
+	@Override
+	public Long id() {
+		return id;
 	}
 
 	@Override
