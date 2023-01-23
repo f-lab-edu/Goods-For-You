@@ -7,7 +7,7 @@ plugins {
 
 group = 'com.aorri2'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '17' //sourceCompatibility는 자바 소스 컴파일을 할 수 있는 버전을 명시할 때 사용합니다.(기본값은 현재 JVM 버전과 같습니다)
 
 repositories {
     mavenCentral()

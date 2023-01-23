@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-  
+
     runs-on: ubuntu-latest
     
     steps:
@@ -21,50 +21,40 @@ jobs:
         with:
           token: ${{secrets.GOODSFORYOU_TOKEN}}
           submodules: recursive
-      
+
       - name: install JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
-          
+
       - name: grant permission to execute gradle command
         run: chmod +x gradlew
-        
+
       - name: run gradle build
         run: ./gradlew build
-        
-      - name: 테스트 커버리지를 PR에 코멘트로 등록합니다
+
+      - name: add typos-action as check spell
+        uses: crate-ci/typos@v1.0.4
+        with:
+          files: 'src/**'
+
+
+
+      - name: register test coverage as a comment in PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.2
+        if: always()
         with:
           title: 📝 테스트 커버리지 리포트입니다
           paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 80
           min-coverage-changed-files: 80
-      
-        
-      - name: add test result in pull request comments
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
-        with:
-          files: '**/build/test-results/test/TEST-*.xml'
-      
+
       - name: if test fail, add check comment on failed code line
         uses: mikepenz/action-junit-report@v3
         if: always()
         with:
-          report_paths: '**/build/test-results/test/TEST-*.xml'
+          report_paths: '**/build/test-results/test/binary/TEST-*.xml'
           token: ${{ github.token }}
-          
-      - name: if build fail, send message to slack channel
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          author_name: 빌드 실패 알림
-          fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.GOODSFORYOU_TOKEN }}
-        if: failure()    
-    
