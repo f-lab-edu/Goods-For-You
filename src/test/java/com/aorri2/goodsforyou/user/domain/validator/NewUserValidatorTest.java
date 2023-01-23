@@ -10,16 +10,17 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 
-import com.aorri2.goodsforyou.user.domain.MemoryUserRepository;
+import com.aorri2.goodsforyou.user.application.NewUserValidator;
+import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.NewUserFinder;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserPolicy;
-import com.aorri2.goodsforyou.user.domain.UserRepository;
+import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserEmailPolicy;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserNamePolicy;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserPasswordPolicy;
-import com.aorri2.goodsforyou.user.domain.user.NewUser;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("NewUserValidator 클래스")
 class NewUserValidatorTest {
@@ -29,15 +30,15 @@ class NewUserValidatorTest {
 	NewUserValidator validator;
 
 	UserFinder userFinder;
-	UserRepository userRepository;
+	UserRepositoryPort userRepositoryPort;
 
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
 		validityPolicyList = List.of(new NewUserEmailPolicy(userFinder), new NewUserNamePolicy(userFinder),
 			new NewUserPasswordPolicy());
-		userRepository = new MemoryUserRepository();
-		userFinder = new NewUserFinder(userRepository);
+		userRepositoryPort = new MemoryUserRepository();
+		userFinder = new NewUserFinder(userRepositoryPort);
 		validator = new NewUserValidator(userFinder);
 	}
 
@@ -50,7 +51,7 @@ class NewUserValidatorTest {
 		class Context_with_ {
 			@BeforeEach
 			void setUp() {
-				userRepository.save(new NewUser("wook@naver.com", "wook", "123123121"));
+				userRepositoryPort.save(new NewUser("wook@naver.com", "wook", "123123121"));
 			}
 
 			@Test

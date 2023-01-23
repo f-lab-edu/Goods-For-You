@@ -5,19 +5,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class NewUserFinder implements UserFinder {
 
-	private final UserRepository userRepository;
+	private final UserRepositoryPort userRepositoryPort;
 
-	public NewUserFinder(UserRepository userRepository) {
-		this.userRepository = userRepository;
+	public NewUserFinder(UserRepositoryPort userRepositoryPort) {
+		this.userRepositoryPort = userRepositoryPort;
 	}
 
 	@Override
 	public User findByName(String name) {
-		return userRepository.findByName(name);
+		return userRepositoryPort.findByName(name);
 	}
 
 	@Override
 	public User findByEmail(String email) {
-		return userRepository.findByEmail(email);
+		return userRepositoryPort.findByEmail(email);
 	}
 }

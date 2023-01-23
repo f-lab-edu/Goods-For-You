@@ -7,9 +7,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.aorri2.goodsforyou.user.domain.management.NewUserManagement;
-import com.aorri2.goodsforyou.user.domain.user.NewUser;
-import com.aorri2.goodsforyou.user.domain.validator.NewUserValidator;
+import com.aorri2.goodsforyou.user.application.NewUserCreator;
+import com.aorri2.goodsforyou.user.application.NewUserValidator;
+import com.aorri2.goodsforyou.user.application.facade.NewUserManagement;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("NewUserManagement 클래스")
 class NewUserManagementTest {
@@ -24,7 +25,7 @@ class NewUserManagementTest {
 
 		userRepository = new MemoryUserRepository();
 		userRepository.clear();
-		
+
 		UserCreator userCreator = new NewUserCreator(userRepository);
 		UserFinder userFinder = new NewUserFinder(userRepository);
 		UserValidator userValidator = new NewUserValidator(userFinder);

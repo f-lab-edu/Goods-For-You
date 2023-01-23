@@ -1,4 +1,4 @@
-package com.aorri2.goodsforyou.user.domain.management;
+package com.aorri2.goodsforyou.user.application.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

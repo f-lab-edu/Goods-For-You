@@ -7,18 +7,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.aorri2.goodsforyou.user.domain.user.NewUser;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("NewUserFinder 클래스")
 class NewUserFinderTest {
 
 	UserFinder newUserFinder;
-	UserRepository userRepository;
+	UserRepositoryPort userRepositoryPort;
 
 	@BeforeEach
 	void setUp() {
-		userRepository = new MemoryUserRepository();
-		newUserFinder = new NewUserFinder(userRepository);
+		userRepositoryPort = new MemoryUserRepository();
+		newUserFinder = new NewUserFinder(userRepositoryPort);
 	}
 
 	@Nested
@@ -28,7 +28,7 @@ class NewUserFinderTest {
 		@BeforeEach
 		void setUp() {
 			User user = new NewUser("wook@naver.com", "wook", "123123");
-			userRepository.save(user);
+			userRepositoryPort.save(user);
 		}
 
 		@Nested

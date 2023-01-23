@@ -7,7 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.aorri2.goodsforyou.user.domain.user.NewUser;
+import com.aorri2.goodsforyou.user.application.NewUserCreator;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("NewUserCreator 클래스")
 class NewUserCreatorTest {

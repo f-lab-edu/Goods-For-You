@@ -1,4 +1,4 @@
-package com.aorri2.goodsforyou.user.domain.validator;
+package com.aorri2.goodsforyou.user.application;
 
 import java.util.List;
 

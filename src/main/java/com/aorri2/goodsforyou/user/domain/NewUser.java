@@ -1,6 +1,4 @@
-package com.aorri2.goodsforyou.user.domain.user;
-
-import com.aorri2.goodsforyou.user.domain.User;
+package com.aorri2.goodsforyou.user.domain;
 
 public class NewUser implements User {
 	private Long id;

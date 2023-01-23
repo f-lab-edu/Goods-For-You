@@ -8,10 +8,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.aorri2.goodsforyou.user.domain.user.NewUser;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("MemoryUserRepository 클래스")
-class MemoryUserRepositoryTest {
+class MemoryUserRepositoryPortTest {
 
 	private final MemoryUserRepository memoryUserRepository = new MemoryUserRepository();
 	private User user1;

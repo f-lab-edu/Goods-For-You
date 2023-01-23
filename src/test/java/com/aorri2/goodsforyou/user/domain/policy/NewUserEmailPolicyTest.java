@@ -7,12 +7,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.aorri2.goodsforyou.user.domain.MemoryUserRepository;
+import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.NewUserFinder;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
-import com.aorri2.goodsforyou.user.domain.UserRepository;
-import com.aorri2.goodsforyou.user.domain.user.NewUser;
+import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
 
 @DisplayName("NewUserEmailPolicy 클래스")
 class NewUserEmailPolicyTest {
@@ -21,12 +21,12 @@ class NewUserEmailPolicyTest {
 
 	NewUserEmailPolicy policy;
 
-	UserRepository userRepository;
+	UserRepositoryPort userRepositoryPort;
 
 	@BeforeEach
 	void setUp() {
-		userRepository = new MemoryUserRepository();
-		finder = new NewUserFinder(userRepository);
+		userRepositoryPort = new MemoryUserRepository();
+		finder = new NewUserFinder(userRepositoryPort);
 		policy = new NewUserEmailPolicy(finder);
 	}
 
@@ -42,7 +42,7 @@ class NewUserEmailPolicyTest {
 			@BeforeEach
 			void setUp() {
 				user = new NewUser("wook@naver.com", "wook", "123123");
-				userRepository.save(user);
+				userRepositoryPort.save(user);
 			}
 
 			@Test

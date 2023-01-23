@@ -7,8 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.User;
-import com.aorri2.goodsforyou.user.domain.user.NewUser;
 
 @DisplayName("NewUserPasswordPolicyTest 클래스")
 class NewUserPasswordPolicyTest {
