@@ -2,7 +2,6 @@ package com.aorri2.goodsforyou.user.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -13,22 +12,17 @@ import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryA
 @DisplayName("MemoryUserRepositoryAdapter 클래스")
 class MemoryUserRepositoryAdapterTest {
 
-	private final MemoryUserRepositoryAdapter memoryUserRepositoryAdapter = new MemoryUserRepositoryAdapter();
+	private MemoryUserRepositoryAdapter memoryUserRepositoryAdapter;
 	private User user1;
 	private User user2;
 	private User user3;
 
 	@BeforeEach
 	void setUp() {
-		memoryUserRepositoryAdapter.clear();
+		memoryUserRepositoryAdapter = new MemoryUserRepositoryAdapter();
 		user1 = new NewUser("wook2@naver.com", "wook", "121211");
 		user2 = new NewUser("jong@naver.com", "jong", "12345667");
 		user3 = new NewUser("hwang@naver.com", "hwang", "13209848s!");
-	}
-
-	@AfterEach
-	void tearDown() {
-		memoryUserRepositoryAdapter.clear();
 	}
 
 	@Nested

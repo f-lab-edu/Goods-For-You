@@ -9,9 +9,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import com.aorri2.goodsforyou.user.application.NewUserFinder;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
 import com.aorri2.goodsforyou.user.domain.NewUser;
-import com.aorri2.goodsforyou.user.domain.NewUserFinder;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserPolicy;

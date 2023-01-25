@@ -14,15 +14,15 @@ import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryA
 class NewUserCreatorTest {
 
 	MemoryUserRepositoryAdapter memoryUserRepositoryAdapter;
-
 	UserRepositoryPort userRepositoryPort;
-
+	User user;
 	NewUserCreator newUserCreator;
 
 	@BeforeEach
 	void setUp() {
+		user = new NewUser("wook@.naver.com", "jongwuk", "1232131");
 		memoryUserRepositoryAdapter = new MemoryUserRepositoryAdapter();
-		userRepositoryPort = new MemoryUserRepositoryAdapter();
+		userRepositoryPort = memoryUserRepositoryAdapter;
 		newUserCreator = new NewUserCreator(userRepositoryPort);
 	}
 
@@ -36,11 +36,10 @@ class NewUserCreatorTest {
 			@Test
 			@DisplayName("사용자가 입력한 값으로 저장한다.")
 			void it_save_userInput() {
-				User user = new NewUser("wook@.naver.com", "jong", "1232131");
 
 				newUserCreator.save(user);
 
-				User foundUser = memoryUserRepositoryAdapter.findByName("jong");
+				User foundUser = userRepositoryPort.findByName("jongwuk");
 
 				assertThat(foundUser).isEqualTo(user);
 			}

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.aorri2.goodsforyou.user.application.NewUserCreator;
+import com.aorri2.goodsforyou.user.application.NewUserFinder;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
 import com.aorri2.goodsforyou.user.application.facade.NewUserManagement;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
@@ -16,7 +17,7 @@ import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryA
 class NewUserManagementTest {
 
 	UserValidator validator;
-	UserCreator creator;
+	NewUserCreator creator;
 	UserFinder finder;
 	UserManagement userManagement;
 	UserRepositoryPort userRepositoryPort;
