@@ -4,12 +4,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
 
-@Component
+@Repository
 public class MemoryUserRepositoryAdapter implements UserRepositoryPort {
 
 	private static Map<Long, User> userStore = new ConcurrentHashMap<>();
@@ -34,7 +34,4 @@ public class MemoryUserRepositoryAdapter implements UserRepositoryPort {
 			.orElse(null);
 	}
 
-	public void clear() {
-		userStore.clear();
-	}
 }
