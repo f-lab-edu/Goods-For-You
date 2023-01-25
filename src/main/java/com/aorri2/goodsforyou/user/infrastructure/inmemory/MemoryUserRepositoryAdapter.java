@@ -7,9 +7,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Component;
 
 import com.aorri2.goodsforyou.user.domain.User;
+import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
 
 @Component
-public class MemoryUserRepository {
+public class MemoryUserRepositoryAdapter implements UserRepositoryPort {
 
 	private static Map<Long, User> userStore = new ConcurrentHashMap<>();
 	private static AtomicLong userIdSequence = new AtomicLong();
