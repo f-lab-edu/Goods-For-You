@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
 import com.aorri2.goodsforyou.user.domain.NewUser;
@@ -20,8 +19,7 @@ import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserEmailPolicy;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserNamePolicy;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserPasswordPolicy;
-import com.aorri2.goodsforyou.user.infrastructure.UserRepositoryAdapter;
-import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserValidator 클래스")
 class NewUserValidatorTest {
@@ -32,15 +30,14 @@ class NewUserValidatorTest {
 
 	UserFinder userFinder;
 	UserRepositoryPort userRepositoryPort;
-	MemoryUserRepository memoryUserRepository;
 
 	@BeforeEach
 	void setUp() {
-		MockitoAnnotations.openMocks(this);
+
 		validityPolicyList = List.of(new NewUserEmailPolicy(userFinder), new NewUserNamePolicy(userFinder),
 			new NewUserPasswordPolicy());
-		memoryUserRepository = new MemoryUserRepository();
-		userRepositoryPort = new UserRepositoryAdapter(memoryUserRepository);
+
+		userRepositoryPort = new MemoryUserRepositoryAdapter();
 		userFinder = new NewUserFinder(userRepositoryPort);
 		validator = new NewUserValidator(userFinder);
 	}

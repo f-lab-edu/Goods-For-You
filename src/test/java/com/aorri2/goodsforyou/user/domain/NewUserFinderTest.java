@@ -7,20 +7,17 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.aorri2.goodsforyou.user.infrastructure.UserRepositoryAdapter;
-import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserFinder 클래스")
 class NewUserFinderTest {
 
 	UserFinder newUserFinder;
 	UserRepositoryPort userRepositoryPort;
-	MemoryUserRepository memoryUserRepository;
 
 	@BeforeEach
 	void setUp() {
-		memoryUserRepository = new MemoryUserRepository();
-		userRepositoryPort = new UserRepositoryAdapter(memoryUserRepository);
+		userRepositoryPort = new MemoryUserRepositoryAdapter();
 		newUserFinder = new NewUserFinder(userRepositoryPort);
 	}
 

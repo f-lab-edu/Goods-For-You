@@ -8,27 +8,27 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
-@DisplayName("MemoryUserRepository 클래스")
-class MemoryUserRepositoryPortTest {
+@DisplayName("MemoryUserRepositoryAdapter 클래스")
+class MemoryUserRepositoryAdapterTest {
 
-	private final MemoryUserRepository memoryUserRepository = new MemoryUserRepository();
+	private final MemoryUserRepositoryAdapter memoryUserRepositoryAdapter = new MemoryUserRepositoryAdapter();
 	private User user1;
 	private User user2;
 	private User user3;
 
 	@BeforeEach
 	void setUp() {
-		memoryUserRepository.clear();
-		user1 = new NewUser("wook@naver.com", "wook", "121211");
+		memoryUserRepositoryAdapter.clear();
+		user1 = new NewUser("wook2@naver.com", "wook", "121211");
 		user2 = new NewUser("jong@naver.com", "jong", "12345667");
 		user3 = new NewUser("hwang@naver.com", "hwang", "13209848s!");
 	}
 
 	@AfterEach
 	void tearDown() {
-		memoryUserRepository.clear();
+		memoryUserRepositoryAdapter.clear();
 	}
 
 	@Nested
@@ -43,13 +43,13 @@ class MemoryUserRepositoryPortTest {
 			@DisplayName("사용자가 입력한 user 객체의 정보를 저장한다.")
 			void it_return_savedUserValue() {
 
-				memoryUserRepository.save(user1);
-				memoryUserRepository.save(user2);
-				memoryUserRepository.save(user3);
+				memoryUserRepositoryAdapter.save(user1);
+				memoryUserRepositoryAdapter.save(user2);
+				memoryUserRepositoryAdapter.save(user3);
 
-				User foundUser1 = memoryUserRepository.findByName("wook");
-				User foundUser2 = memoryUserRepository.findByName("jong");
-				User foundUser3 = memoryUserRepository.findByName("hwang");
+				User foundUser1 = memoryUserRepositoryAdapter.findByName("wook");
+				User foundUser2 = memoryUserRepositoryAdapter.findByName("jong");
+				User foundUser3 = memoryUserRepositoryAdapter.findByName("hwang");
 
 				assertThat(foundUser1.name()).isEqualTo(user1.name());
 				assertThat(foundUser2.name()).isEqualTo(user2.name());
@@ -70,13 +70,13 @@ class MemoryUserRepositoryPortTest {
 			@DisplayName("이름에 해당하는 유저를 리턴한다.")
 			void it_returns_a_correct_user() {
 
-				memoryUserRepository.save(user1);
-				memoryUserRepository.save(user2);
-				memoryUserRepository.save(user3);
+				memoryUserRepositoryAdapter.save(user1);
+				memoryUserRepositoryAdapter.save(user2);
+				memoryUserRepositoryAdapter.save(user3);
 
-				User foundUser1 = memoryUserRepository.findByName("wook");
-				User foundUser2 = memoryUserRepository.findByName("jong");
-				User foundUser3 = memoryUserRepository.findByName("hwang");
+				User foundUser1 = memoryUserRepositoryAdapter.findByName("wook");
+				User foundUser2 = memoryUserRepositoryAdapter.findByName("jong");
+				User foundUser3 = memoryUserRepositoryAdapter.findByName("hwang");
 
 				checkSameUser(user1, foundUser1);
 				checkSameUser(user2, foundUser2);
@@ -96,13 +96,13 @@ class MemoryUserRepositoryPortTest {
 			@DisplayName("이메일에 해당하는 유저를 리턴한다")
 			void it_returns_a_correctUser() {
 
-				memoryUserRepository.save(user1);
-				memoryUserRepository.save(user2);
-				memoryUserRepository.save(user3);
+				memoryUserRepositoryAdapter.save(user1);
+				memoryUserRepositoryAdapter.save(user2);
+				memoryUserRepositoryAdapter.save(user3);
 
-				User foundByEmail1 = memoryUserRepository.findByEmail("wook@naver.com");
-				User foundByEmail2 = memoryUserRepository.findByEmail("jong@naver.com");
-				User foundByEmail3 = memoryUserRepository.findByEmail("hwang@naver.com");
+				User foundByEmail1 = memoryUserRepositoryAdapter.findByEmail("wook2@naver.com");
+				User foundByEmail2 = memoryUserRepositoryAdapter.findByEmail("jong@naver.com");
+				User foundByEmail3 = memoryUserRepositoryAdapter.findByEmail("hwang@naver.com");
 
 				checkSameUser(user1, foundByEmail1);
 				checkSameUser(user2, foundByEmail2);

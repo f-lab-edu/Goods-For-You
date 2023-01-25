@@ -8,13 +8,12 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.aorri2.goodsforyou.user.application.NewUserCreator;
-import com.aorri2.goodsforyou.user.infrastructure.UserRepositoryAdapter;
-import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserCreator 클래스")
 class NewUserCreatorTest {
 
-	MemoryUserRepository memoryUserRepository;
+	MemoryUserRepositoryAdapter memoryUserRepositoryAdapter;
 
 	UserRepositoryPort userRepositoryPort;
 
@@ -22,8 +21,8 @@ class NewUserCreatorTest {
 
 	@BeforeEach
 	void setUp() {
-		memoryUserRepository = new MemoryUserRepository();
-		userRepositoryPort = new UserRepositoryAdapter(memoryUserRepository);
+		memoryUserRepositoryAdapter = new MemoryUserRepositoryAdapter();
+		userRepositoryPort = new MemoryUserRepositoryAdapter();
 		newUserCreator = new NewUserCreator(userRepositoryPort);
 	}
 
@@ -41,7 +40,7 @@ class NewUserCreatorTest {
 
 				newUserCreator.save(user);
 
-				User foundUser = memoryUserRepository.findByName("jong");
+				User foundUser = memoryUserRepositoryAdapter.findByName("jong");
 
 				assertThat(foundUser).isEqualTo(user);
 			}

@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.aorri2.goodsforyou.user.application.NewUserCreator;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
 import com.aorri2.goodsforyou.user.application.facade.NewUserManagement;
-import com.aorri2.goodsforyou.user.infrastructure.UserRepositoryAdapter;
-import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepository;
+import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserManagement 클래스")
 class NewUserManagementTest {
@@ -21,20 +20,17 @@ class NewUserManagementTest {
 	UserFinder finder;
 	UserManagement userManagement;
 	UserRepositoryPort userRepositoryPort;
-	MemoryUserRepository userRepository;
+	User user;
 
 	@BeforeEach
 	void setUp() {
-
-		userRepository = new MemoryUserRepository();
-		userRepositoryPort = new UserRepositoryAdapter(userRepository);
-		userRepository.clear();
-
+		userRepositoryPort = new MemoryUserRepositoryAdapter();
 		creator = new NewUserCreator(userRepositoryPort);
 		finder = new NewUserFinder(userRepositoryPort);
 		validator = new NewUserValidator(finder);
-
 		userManagement = new NewUserManagement(creator, validator);
+
+		user = new NewUser("goods@naver.com", "goods", "123123123");
 	}
 
 	/**
@@ -52,10 +48,8 @@ class NewUserManagementTest {
 			@DisplayName("해당 유저 정보를 저장한다.")
 			void it_save_that_userInformation() {
 
-				User user = new NewUser("wook@naver.com", "wook", "123123123");
-
 				userManagement.joinUser(user);
-				User foundUser = userRepository.findByName("wook");
+				User foundUser = userRepositoryPort.findByName("goods");
 
 				assertThat(foundUser).isNotNull();
 				assertThat(foundUser.name()).isEqualTo(user.name());
