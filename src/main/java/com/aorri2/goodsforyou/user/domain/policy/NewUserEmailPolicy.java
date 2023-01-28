@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserPolicy;
+import com.aorri2.goodsforyou.user.domain.exception.HasDuplicatedEmailException;
 
 @Component
 public class NewUserEmailPolicy implements UserPolicy {
@@ -18,7 +19,7 @@ public class NewUserEmailPolicy implements UserPolicy {
 	@Override
 	public void apply(User user) {
 		if (userFinder.findByEmail(user.email()) != null) {
-			throw new RuntimeException("이미 존재하는 이메일 입니다.");
+			throw new HasDuplicatedEmailException();
 		}
 	}
 }
