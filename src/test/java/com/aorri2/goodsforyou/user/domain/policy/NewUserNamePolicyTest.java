@@ -12,6 +12,7 @@ import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
+import com.aorri2.goodsforyou.user.domain.exception.HasDuplicatedNameException;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserNamePolicyTest 클래스")
@@ -47,12 +48,12 @@ class NewUserNamePolicyTest {
 			}
 
 			@Test
-			@DisplayName("RuntimeException을 던진다")
+			@DisplayName("HasDuplicatedNameException 던진다")
 			void it_throws_RuntimeException() {
 
 				User user = new NewUser("wook@naver.com", "wook", "123123");
 
-				assertThatThrownBy(() -> policy.apply(user)).isInstanceOf(RuntimeException.class);
+				assertThatThrownBy(() -> policy.apply(user)).isInstanceOf(HasDuplicatedNameException.class);
 			}
 		}
 	}
