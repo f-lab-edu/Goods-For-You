@@ -1,4 +1,4 @@
-package com.aorri2.goodsforyou.user.presentation;
+package com.aorri2.goodsforyou.user;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -23,7 +23,7 @@ import io.restassured.response.Response;
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("UserControllerTest 클래스")
-class UserControllerTest {
+class UserIntegrationTest {
 
 	@LocalServerPort
 	private int port;
