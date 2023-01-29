@@ -22,7 +22,7 @@ import io.restassured.response.Response;
  * RANDOM_PORT로 설정하면 스프링 부트의 내장 서버를 랜덤 포트로 설정합니다.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DisplayName("UserControllerTest 클래스")
+@DisplayName("UserIntegrationTest 클래스")
 class UserIntegrationTest {
 
 	@LocalServerPort
