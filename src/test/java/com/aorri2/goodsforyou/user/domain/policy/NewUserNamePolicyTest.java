@@ -12,7 +12,7 @@ import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
-import com.aorri2.goodsforyou.user.domain.exception.HasDuplicatedNameException;
+import com.aorri2.goodsforyou.user.domain.exception.DuplicatedNameException;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserNamePolicyTest 클래스")
@@ -53,7 +53,7 @@ class NewUserNamePolicyTest {
 
 				User user = new NewUser("wook@naver.com", "wook", "123123");
 
-				assertThatThrownBy(() -> policy.apply(user)).isInstanceOf(HasDuplicatedNameException.class);
+				assertThatThrownBy(() -> policy.apply(user)).isInstanceOf(DuplicatedNameException.class);
 			}
 		}
 	}

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserPolicy;
-import com.aorri2.goodsforyou.user.domain.exception.HasDuplicatedNameException;
+import com.aorri2.goodsforyou.user.domain.exception.DuplicatedNameException;
 
 @Component
 public class NewUserNamePolicy implements UserPolicy {
@@ -18,7 +18,7 @@ public class NewUserNamePolicy implements UserPolicy {
 	@Override
 	public void apply(User user) {
 		if (userFinder.findByName(user.name()) != null) {
-			throw new HasDuplicatedNameException();
+			throw new DuplicatedNameException();
 		}
 	}
 }

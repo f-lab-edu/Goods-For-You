@@ -12,7 +12,7 @@ import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
-import com.aorri2.goodsforyou.user.domain.exception.HasDuplicatedEmailException;
+import com.aorri2.goodsforyou.user.domain.exception.DuplicatedEmailException;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserEmailPolicy 클래스")
@@ -53,7 +53,7 @@ class NewUserEmailPolicyTest {
 				User user = new NewUser("wook@naver.com", "wook", "123123");
 
 				assertThatThrownBy(() -> policy.apply(user))
-					.isInstanceOf(HasDuplicatedEmailException.class);
+					.isInstanceOf(DuplicatedEmailException.class);
 			}
 
 			@Test
@@ -62,7 +62,7 @@ class NewUserEmailPolicyTest {
 				User user = new NewUser("wook@naver.com", "wook", "123123");
 
 				assertThatThrownBy(() -> policy.apply(user))
-					.isInstanceOf(HasDuplicatedEmailException.class).hasMessage("이미 존재하는 이메일 입니다.");
+					.isInstanceOf(DuplicatedEmailException.class).hasMessage("이미 존재하는 이메일 입니다.");
 			}
 
 		}
