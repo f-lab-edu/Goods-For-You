@@ -2,6 +2,7 @@ package com.aorri2.goodsforyou.user.presentation;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class UserController {
 	}
 
 	@PostMapping("/users")
-	public ResponseEntity<NewUserRequest> register(@RequestBody NewUserRequest request) {
+	public ResponseEntity<NewUserRequest> register(@RequestBody @Validated NewUserRequest request) {
 		userManagement.joinUser(request.toCommand());
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();

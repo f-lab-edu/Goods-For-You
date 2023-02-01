@@ -51,23 +51,104 @@ class UserControllerTest {
 			@Test
 			@DisplayName("정상적으로 회원가입 동작을 수행한다.")
 			void it_execute_that_register() throws Exception {
-				doNothing().when(userManagement).joinUser(createNewUserCommandBy(createNewUserRequest()));
+				doNothing().when(userManagement)
+					.joinUser(createNewUserCommandBy(createNewUserRequest("testUser@test.com", "testUser",
+						"test123@@")));
 
 				mockMvc.perform(post("/api/v1/users")
 						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(createNewUserRequest())))
+						.content(objectMapper.writeValueAsString(
+							createNewUserRequest("testUser@test.com", "testUser", "test123@@"))))
 					.andDo(print())
 					.andExpect(status().isCreated());
 			}
 
 		}
 
+		@Nested
+		@DisplayName("유저 이메일 정보가 주어지지 않는다면")
+		class Context_withOut_userEmailInformation {
+
+			@Test
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest() throws Exception {
+				NewUserRequest testUser = createNewUserRequest(null, "testUser", "test123@@");
+
+				doNothing().when(userManagement).joinUser(createNewUserCommandBy(testUser));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(testUser)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+
+		}
+
+		@Nested
+		@DisplayName("유저 닉네임 정보가 빈칸이라면")
+		class Context_with_userNickname_information_is_blank {
+
+			@Test
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest() throws Exception {
+				NewUserRequest testUser = createNewUserRequest("testUser@naver.com", "", "test123@@");
+
+				doNothing().when(userManagement).joinUser(createNewUserCommandBy(testUser));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(testUser)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+
+		}
+
+		@Nested
+		@DisplayName("유저 비밀번호 정보가 빈칸이라면")
+		class Context_with_userPassword_information_is_blank {
+
+			@Test
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest() throws Exception {
+				NewUserRequest testUser = createNewUserRequest("testUser@naver.com", "testUser", "");
+
+				doNothing().when(userManagement).joinUser(createNewUserCommandBy(testUser));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(testUser)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+
+		}
+
+		@Nested
+		@DisplayName("유저 비밀번호의 길이가 8 이하 라면")
+		class Context_with_userPassword_length_is_lower_than_8 {
+			@Test
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest() throws Exception {
+				NewUserRequest testUser = createNewUserRequest("testUser@naver.com", "testUser", "1234567");
+
+				doNothing().when(userManagement).joinUser(createNewUserCommandBy(testUser));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(testUser)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+		}
+
 		private CreateUserCommand createNewUserCommandBy(NewUserRequest request) {
 			return request.toCommand();
 		}
 
-		private NewUserRequest createNewUserRequest() {
-			return new NewUserRequest("test@mail.com", "testUser", "test123@@");
+		private NewUserRequest createNewUserRequest(String email, String name, String password) {
+			return new NewUserRequest(email, name, password);
 		}
 	}
 }
