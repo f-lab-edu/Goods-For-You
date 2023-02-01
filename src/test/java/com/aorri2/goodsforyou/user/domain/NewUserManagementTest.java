@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import com.aorri2.goodsforyou.user.application.NewUserCreator;
 import com.aorri2.goodsforyou.user.application.NewUserFinder;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
+import com.aorri2.goodsforyou.user.application.UserManagement;
+import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.application.facade.NewUserManagement;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
@@ -21,7 +23,7 @@ class NewUserManagementTest {
 	UserFinder finder;
 	UserManagement userManagement;
 	UserRepositoryPort userRepositoryPort;
-	User user;
+	CreateUserCommand user;
 
 	@BeforeEach
 	void setUp() {
@@ -31,7 +33,7 @@ class NewUserManagementTest {
 		validator = new NewUserValidator(finder);
 		userManagement = new NewUserManagement(creator, validator);
 
-		user = new NewUser("goods@naver.com", "goods", "123123123");
+		user = new CreateUserCommand("goods@naver.com", "goods", "123123123");
 	}
 
 	/**
@@ -53,7 +55,7 @@ class NewUserManagementTest {
 				User foundUser = userRepositoryPort.findByName("goods");
 
 				assertThat(foundUser).isNotNull();
-				assertThat(foundUser.name()).isEqualTo(user.name());
+				assertThat(foundUser.name()).isEqualTo(user.getName());
 			}
 		}
 	}

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.User;
+import com.aorri2.goodsforyou.user.domain.exception.InvalidPasswordException;
 
 @DisplayName("NewUserPasswordPolicyTest 클래스")
 class NewUserPasswordPolicyTest {
@@ -28,11 +29,11 @@ class NewUserPasswordPolicyTest {
 		@DisplayName("만약 패스워드가 8자리 이하라면")
 		class Context_with_password_LessThan_8 {
 			@Test
-			@DisplayName("RuntimeException을 던진다")
+			@DisplayName("InvalidPasswordException을 던진다")
 			void it_throws_RuntimeException() {
 				User user = new NewUser("wook@naver.com", "wook", "123123");
 
-				assertThatThrownBy(() -> policy.apply(user)).isInstanceOf(RuntimeException.class);
+				assertThatThrownBy(() -> policy.apply(user)).isInstanceOf(InvalidPasswordException.class);
 			}
 		}
 	}

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.aorri2.goodsforyou.user.domain.User;
+import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserPolicy;
 import com.aorri2.goodsforyou.user.domain.UserValidator;
@@ -22,7 +22,7 @@ public class NewUserValidator implements UserValidator {
 	}
 
 	@Override
-	public void checkUserValidity(User user) {
-		validityPolicyList.forEach(policy -> policy.apply(user));
+	public void checkUserValidity(CreateUserCommand user) {
+		validityPolicyList.forEach(policy -> policy.apply(user.toEntity()));
 	}
 }

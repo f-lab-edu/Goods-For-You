@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import com.aorri2.goodsforyou.user.application.NewUserFinder;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
+import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.domain.NewUser;
-import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserPolicy;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
@@ -48,7 +48,7 @@ class NewUserValidatorTest {
 
 		@Nested
 		@DisplayName("만약 이메일과 이름이 중복된다면 ")
-		class Context_with_ {
+		class Context_with_emailAndName {
 			@BeforeEach
 			void setUp() {
 				userRepositoryPort.save(new NewUser("wook@naver.com", "wook", "123123121"));
@@ -57,7 +57,7 @@ class NewUserValidatorTest {
 			@Test
 			@DisplayName("RuntimeException을 발생시킨다.")
 			void it_execute_policySize() {
-				User user = new NewUser("wook@naver.com", "wook", "123123121");
+				CreateUserCommand user = new CreateUserCommand("wook@naver.com", "wook", "123123121");
 
 				assertThatThrownBy(() -> validator.checkUserValidity(user)).isInstanceOf(RuntimeException.class)
 					.hasMessage("이미 존재하는 이메일 입니다.");
