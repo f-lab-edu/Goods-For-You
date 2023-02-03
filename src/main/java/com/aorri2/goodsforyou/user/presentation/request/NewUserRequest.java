@@ -13,7 +13,7 @@ public class NewUserRequest {
 	 * @GfyEmailConstraint 에너테이션을 통해 Null값, 빈 문자열, 공백 문자열을 모두 검증했습니다.
 	 * (@NotBlank + @Email)
 	 */
-	@GfyEmailConstraint(message = "이메일은 필수 값 입니다.")
+	@GfyEmailConstraint
 	private String email;
 
 	@NotBlank(message = "이름은 필수 값 입니다.")

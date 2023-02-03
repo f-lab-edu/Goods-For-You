@@ -16,7 +16,7 @@ import jakarta.validation.Payload;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface GfyEmailConstraint {
-	String message() default "일치하지 않는 이메일 형식 입니다.";
+	String message() default "'${validatedValue}'은 유효하지 않은 이메일 형식 입니다.";
 
 	Class<?>[] groups() default {};
 
