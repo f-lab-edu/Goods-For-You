@@ -5,9 +5,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -51,23 +56,151 @@ class UserControllerTest {
 			@Test
 			@DisplayName("정상적으로 회원가입 동작을 수행한다.")
 			void it_execute_that_register() throws Exception {
-				doNothing().when(userManagement).joinUser(createNewUserCommandBy(createNewUserRequest()));
+				doNothing().when(userManagement)
+					.joinUser(createNewUserCommandBy(createNewUserRequest("testuser@test.com", "testUser",
+						"test123@@")));
 
 				mockMvc.perform(post("/api/v1/users")
 						.contentType(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(createNewUserRequest())))
+						.content(objectMapper.writeValueAsString(
+							createNewUserRequest("testUser@test.com", "testUser", "test123@@"))))
 					.andDo(print())
 					.andExpect(status().isCreated());
 			}
 
 		}
 
+		@Nested
+		@DisplayName("유저 이메일 정보가 주어지지 않는다면")
+		class Context_withOut_userEmailInformation {
+
+			@ParameterizedTest
+			@MethodSource("invalidUserEmailParameter")
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest(NewUserRequest newUserRequest) throws Exception {
+
+				doNothing().when(userManagement).joinUser(createNewUserCommandBy(newUserRequest));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(newUserRequest)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+
+			private static Stream<Arguments> invalidUserEmailParameter() {
+
+				return Stream.of(
+					Arguments.of(new NewUserRequest("", "test", "testtesttest")),
+					Arguments.of(new NewUserRequest(" ", "test", "testtesttest")),
+					Arguments.of(new NewUserRequest(null, "test", "testtesttest"))
+				);
+			}
+
+		}
+
+		@Nested
+		@DisplayName("유저 이메일 형식이 일치하지 않는다면")
+		class Context_with_userEmailFormat_Invalid {
+
+			/**
+			 * ParameterizedTest 애노테이션을 붙이면 해당 테스트는 동일한 테스트 케이스에 대해 파라미터를 다르게 실행할 수 있게 됩니다.
+			 * 또한 @MethodSource로 ParameterizedTest에서 사용할 파라미터를 생성하기 위해 작성한 메서드 이름을 적어주면 해당 메서드의 코드를
+			 * 실행시켜, 파라미터를 만들어 줍니다.
+			 */
+			@ParameterizedTest
+			@MethodSource("invalidUserEmailFormatParameter")
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest(NewUserRequest newUserRequest) throws Exception {
+
+				doNothing().when(userManagement).joinUser(createNewUserCommandBy(newUserRequest));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(newUserRequest)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+
+			/**
+			 * Parameterized 테스트 에서 사용할 값들을 생성하는 메서드
+			 * @return 유저 이메일 형식에 일치하지 않는 NewUserRequest 객체를 리턴합니다.
+			 */
+			private static Stream<Arguments> invalidUserEmailFormatParameter() {
+
+				return Stream.of(
+					Arguments.of(new NewUserRequest("!asd@naa.com", "test", "testtesttest")),
+					Arguments.of(new NewUserRequest("asd.naa.com", "test", "testtesttest")),
+					Arguments.of(new NewUserRequest("asdnaa@.com", "test", "testtesttest"))
+				);
+			}
+
+		}
+
+		@Nested
+		@DisplayName("유저 닉네임 정보가 빈칸이라면")
+		class Context_with_userNickname_information_is_blank {
+
+			@Test
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest() throws Exception {
+				NewUserRequest testUser = createNewUserRequest("testUser@naver.com", "", "test123@@");
+
+				doNothing().when(userManagement).joinUser(createNewUserCommandBy(testUser));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(testUser)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+
+		}
+
+		@Nested
+		@DisplayName("유저 비밀번호 정보가 빈칸이라면")
+		class Context_with_userPassword_information_is_blank {
+
+			@Test
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest() throws Exception {
+				NewUserRequest testUser = createNewUserRequest("testUser@naver.com", "testUser", "");
+
+				doNothing().when(userManagement).joinUser(createNewUserCommandBy(testUser));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(testUser)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+
+		}
+
+		@Nested
+		@DisplayName("유저 비밀번호의 길이가 8 이하 라면")
+		class Context_with_userPassword_length_is_lower_than_8 {
+			@Test
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest() throws Exception {
+				NewUserRequest testUser = createNewUserRequest("testUser@naver.com", "testUser", "1234567");
+
+				doNothing().when(userManagement).joinUser(createNewUserCommandBy(testUser));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(testUser)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+		}
+
 		private CreateUserCommand createNewUserCommandBy(NewUserRequest request) {
 			return request.toCommand();
 		}
 
-		private NewUserRequest createNewUserRequest() {
-			return new NewUserRequest("test@mail.com", "testUser", "test123@@");
+		private NewUserRequest createNewUserRequest(String email, String name, String password) {
+			return new NewUserRequest(email, name, password);
 		}
 	}
 }
