@@ -24,7 +24,6 @@ class NewUserManagementTest {
 	UserFinder finder;
 	UserManagement userManagement;
 	UserRepositoryPort userRepositoryPort;
-	CreateUserCommand user;
 	TokenGenerator tokenGenerator;
 	LoginUserCommand loginuserCommand;
 
@@ -36,9 +35,11 @@ class NewUserManagementTest {
 		validator = new NewUserValidator(finder);
 		tokenGenerator = new UUIDTokenGenerator();
 		userManagement = new NewUserManagement(creator, validator, tokenGenerator);
+		loginuserCommand = new LoginUserCommand("wook@test.com", "123123123");
+	}
 
-		user = new CreateUserCommand("goods@naver.com", "goods", "123123123");
-		loginuserCommand = new LoginUserCommand("goods@naver.com", "asd123");
+	private CreateUserCommand makeCreateUserCommand(String email, String name, String password) {
+		return new CreateUserCommand(email, name, password);
 	}
 
 	/**
@@ -55,12 +56,12 @@ class NewUserManagementTest {
 			@Test
 			@DisplayName("해당 유저 정보를 저장한다.")
 			void it_save_that_userInformation() {
-
-				userManagement.joinUser(user);
+				CreateUserCommand createUserCommand = makeCreateUserCommand("goods@goods.com", "goods", "123123456");
+				userManagement.joinUser(createUserCommand);
 				User foundUser = userRepositoryPort.findByName("goods");
 
 				assertThat(foundUser).isNotNull();
-				assertThat(foundUser.name()).isEqualTo(user.getName());
+				assertThat(foundUser.name()).isEqualTo(createUserCommand.getName());
 			}
 		}
 	}
@@ -76,8 +77,8 @@ class NewUserManagementTest {
 			@Test
 			@DisplayName("해당 유저 정보를 저장한다.")
 			void it_save_that_userInformation() {
-
-				userManagement.joinUser(user);
+				CreateUserCommand createUserCommand = makeCreateUserCommand("wook@test.com", "test", "123123123");
+				userManagement.joinUser(createUserCommand);
 				String token = userManagement.loginUser(loginuserCommand);
 
 				assertThat(token.getClass()).hasSameClassAs(String.class);
