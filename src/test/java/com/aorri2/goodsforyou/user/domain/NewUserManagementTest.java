@@ -12,6 +12,7 @@ import com.aorri2.goodsforyou.user.application.NewUserFinder;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
 import com.aorri2.goodsforyou.user.application.UserManagement;
 import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
+import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.application.facade.NewUserManagement;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
@@ -24,6 +25,8 @@ class NewUserManagementTest {
 	UserManagement userManagement;
 	UserRepositoryPort userRepositoryPort;
 	CreateUserCommand user;
+	TokenGenerator tokenGenerator;
+	LoginUserCommand loginuserCommand;
 
 	@BeforeEach
 	void setUp() {
@@ -31,9 +34,11 @@ class NewUserManagementTest {
 		creator = new NewUserCreator(userRepositoryPort);
 		finder = new NewUserFinder(userRepositoryPort);
 		validator = new NewUserValidator(finder);
-		userManagement = new NewUserManagement(creator, validator);
+		tokenGenerator = new UUIDTokenGenerator();
+		userManagement = new NewUserManagement(creator, validator, tokenGenerator);
 
 		user = new CreateUserCommand("goods@naver.com", "goods", "123123123");
+		loginuserCommand = new LoginUserCommand("goods@naver.com", "asd123");
 	}
 
 	/**
@@ -56,6 +61,27 @@ class NewUserManagementTest {
 
 				assertThat(foundUser).isNotNull();
 				assertThat(foundUser.name()).isEqualTo(user.getName());
+			}
+		}
+	}
+
+	@Nested
+	@DisplayName("loginUser 메소드는")
+	class Describe_loginUser {
+
+		@Nested
+		@DisplayName("유저정보가 주어진다면")
+		class Context_with_userInformation {
+
+			@Test
+			@DisplayName("해당 유저 정보를 저장한다.")
+			void it_save_that_userInformation() {
+
+				userManagement.joinUser(user);
+				String token = userManagement.loginUser(loginuserCommand);
+
+				assertThat(token.getClass()).hasSameClassAs(String.class);
+
 			}
 		}
 	}
