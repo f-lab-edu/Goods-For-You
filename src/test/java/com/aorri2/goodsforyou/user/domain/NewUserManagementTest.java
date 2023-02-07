@@ -2,6 +2,8 @@ package com.aorri2.goodsforyou.user.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -14,6 +16,11 @@ import com.aorri2.goodsforyou.user.application.UserManagement;
 import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.application.facade.NewUserManagement;
+import com.aorri2.goodsforyou.user.domain.policy.LoginUserEmailPolicy;
+import com.aorri2.goodsforyou.user.domain.policy.LoginUserPasswordPolicy;
+import com.aorri2.goodsforyou.user.domain.policy.NewUserEmailPolicy;
+import com.aorri2.goodsforyou.user.domain.policy.NewUserNamePolicy;
+import com.aorri2.goodsforyou.user.domain.policy.NewUserPasswordPolicy;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserManagement 클래스")
@@ -24,6 +31,9 @@ class NewUserManagementTest {
 	UserFinder finder;
 	UserManagement userManagement;
 	UserRepositoryPort userRepositoryPort;
+
+	List<UserPolicy> validityPolicyList;
+	List<LoginUserPolicy> loginUserPolicyList;
 	TokenGenerator tokenGenerator;
 	LoginUserCommand loginuserCommand;
 
@@ -32,7 +42,10 @@ class NewUserManagementTest {
 		userRepositoryPort = new MemoryUserRepositoryAdapter();
 		creator = new NewUserCreator(userRepositoryPort);
 		finder = new NewUserFinder(userRepositoryPort);
-		validator = new NewUserValidator(finder);
+		validityPolicyList = List.of(new NewUserEmailPolicy(finder), new NewUserNamePolicy(finder),
+			new NewUserPasswordPolicy());
+		loginUserPolicyList = List.of(new LoginUserEmailPolicy(finder), new LoginUserPasswordPolicy(finder));
+		validator = new NewUserValidator(validityPolicyList, loginUserPolicyList);
 		tokenGenerator = new UUIDTokenGenerator();
 		userManagement = new NewUserManagement(creator, validator, tokenGenerator);
 		loginuserCommand = new LoginUserCommand("wook@test.com", "123123123");

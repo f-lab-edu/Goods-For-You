@@ -12,10 +12,13 @@ import org.junit.jupiter.api.Test;
 import com.aorri2.goodsforyou.user.application.NewUserFinder;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
 import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
+import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;
 import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserPolicy;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
+import com.aorri2.goodsforyou.user.domain.policy.LoginUserEmailPolicy;
+import com.aorri2.goodsforyou.user.domain.policy.LoginUserPasswordPolicy;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserEmailPolicy;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserNamePolicy;
 import com.aorri2.goodsforyou.user.domain.policy.NewUserPasswordPolicy;
@@ -30,16 +33,17 @@ class NewUserValidatorTest {
 
 	UserFinder userFinder;
 	UserRepositoryPort userRepositoryPort;
+	List<LoginUserPolicy> loginUserPolicyList;
 
 	@BeforeEach
 	void setUp() {
 
-		validityPolicyList = List.of(new NewUserEmailPolicy(userFinder), new NewUserNamePolicy(userFinder),
-			new NewUserPasswordPolicy());
-
 		userRepositoryPort = new MemoryUserRepositoryAdapter();
 		userFinder = new NewUserFinder(userRepositoryPort);
-		validator = new NewUserValidator(userFinder);
+		validityPolicyList = List.of(new NewUserEmailPolicy(userFinder), new NewUserNamePolicy(userFinder),
+			new NewUserPasswordPolicy());
+		loginUserPolicyList = List.of(new LoginUserEmailPolicy(userFinder), new LoginUserPasswordPolicy(userFinder));
+		validator = new NewUserValidator(validityPolicyList, loginUserPolicyList);
 	}
 
 	@Nested
