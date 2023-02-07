@@ -21,6 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.aorri2.goodsforyou.user.application.UserManagement;
 import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
+import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
+import com.aorri2.goodsforyou.user.presentation.request.LoginUserRequest;
 import com.aorri2.goodsforyou.user.presentation.request.NewUserRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -203,4 +205,94 @@ class UserControllerTest {
 			return new NewUserRequest(email, name, password);
 		}
 	}
+
+	@Nested
+	@DisplayName("login 메서드는")
+	class Describe_login {
+
+		@Nested
+		@DisplayName("로그인 유저 정보가 올바르게 주어진다면")
+		class Context_with_loginUserInformation {
+
+			@Test
+			@DisplayName("정상적으로 로그인 동작을 수행한다.")
+			void it_execute_that_register() throws Exception {
+				doReturn("fakeToken").when(userManagement)
+					.loginUser(loginUserCommandBy(new LoginUserRequest("testUser@test.com", "test123@@")));
+
+				mockMvc.perform(post("/api/v1/login")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(
+							createLoginUserRequest("testUser@test.com", "test123@@"))))
+					.andDo(print())
+					.andExpect(status().isOk());
+			}
+
+		}
+
+		@Nested
+		@DisplayName("로그인 유저의 이메일 형식이 일치하지 않는다면")
+		class Context_with_loginUserEmailFormat_Invalid {
+
+			/**
+			 * ParameterizedTest 애노테이션을 붙이면 해당 테스트는 동일한 테스트 케이스에 대해 파라미터를 다르게 실행할 수 있게 됩니다.
+			 * 또한 @MethodSource로 ParameterizedTest에서 사용할 파라미터를 생성하기 위해 작성한 메서드 이름을 적어주면 해당 메서드의 코드를
+			 * 실행시켜, 파라미터를 만들어 줍니다.
+			 */
+			@ParameterizedTest
+			@MethodSource("invalidUserEmailFormatParameter")
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest(LoginUserRequest loginUserRequest) throws Exception {
+
+				doReturn("FakeToken").when(userManagement).loginUser(loginUserCommandBy(loginUserRequest));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(loginUserRequest)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+
+			/**
+			 * Parameterized 테스트 에서 사용할 값들을 생성하는 메서드
+			 * @return 유저 이메일 형식에 일치하지 않는 NewUserRequest 객체를 리턴합니다.
+			 */
+			private static Stream<Arguments> invalidUserEmailFormatParameter() {
+
+				return Stream.of(
+					Arguments.of(new LoginUserRequest("!asd@naa.com", "testtesttest")),
+					Arguments.of(new LoginUserRequest("asd.naa.com", "testtesttest")),
+					Arguments.of(new LoginUserRequest("asdnaa@.com", "testtesttest"))
+				);
+			}
+
+		}
+
+		@Nested
+		@DisplayName("로그인 유저의 비밀번호의 길이가 8 이하 라면")
+		class Context_with_loginUserPassword_length_is_lower_than_8 {
+			@Test
+			@DisplayName("BadRequest를 status code로 리턴시킨다.")
+			void it_return_badRequest() throws Exception {
+				LoginUserRequest testUser = createLoginUserRequest("testUser@naver.com", "1234567");
+
+				doReturn("fakeToken").when(userManagement).loginUser(loginUserCommandBy(testUser));
+
+				mockMvc.perform(post("/api/v1/users")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(testUser)))
+					.andDo(print())
+					.andExpect(status().isBadRequest());
+			}
+		}
+	}
+
+	private LoginUserRequest createLoginUserRequest(String email, String password) {
+		return new LoginUserRequest(email, password);
+	}
+
+	private LoginUserCommand loginUserCommandBy(LoginUserRequest loginUserRequest) {
+		return loginUserRequest.toCommand();
+	}
+
 }
