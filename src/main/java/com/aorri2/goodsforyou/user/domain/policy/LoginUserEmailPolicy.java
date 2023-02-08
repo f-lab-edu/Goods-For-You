@@ -1,13 +1,10 @@
 package com.aorri2.goodsforyou.user.domain.policy;
 
-import org.springframework.stereotype.Component;
-
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 
-@Component
 public class LoginUserEmailPolicy implements LoginUserPolicy {
 
 	private final UserFinder userFinder;
