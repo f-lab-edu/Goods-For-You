@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aorri2.goodsforyou.user.application.UserManagement;
+import com.aorri2.goodsforyou.user.presentation.request.LoginUserRequest;
 import com.aorri2.goodsforyou.user.presentation.request.NewUserRequest;
 
 @RestController
@@ -27,4 +28,12 @@ public class UserController {
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
+
+	@PostMapping("/login")
+	public ResponseEntity<String> login(@RequestBody @Validated LoginUserRequest request) {
+		String token = userManagement.loginUser(request.toCommand());
+
+		return ResponseEntity.ok(token);
+	}
+
 }
