@@ -7,4 +7,6 @@ public interface UserManagement {
 	void joinUser(CreateUserCommand command);
 
 	String loginUser(LoginUserCommand command);
+
+	void logout();
 }
