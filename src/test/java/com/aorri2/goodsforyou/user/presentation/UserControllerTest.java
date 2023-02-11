@@ -7,7 +7,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -283,6 +286,30 @@ class UserControllerTest {
 						.content(objectMapper.writeValueAsString(testUser)))
 					.andDo(print())
 					.andExpect(status().isBadRequest());
+			}
+		}
+	}
+
+	@Nested
+	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+	class logout_메서드는 {
+
+		@Nested
+		@DisplayName("유효한 세션 토큰이 주어지면")
+		class Context_with_valid_session_token {
+			@BeforeEach
+			void setUp() {
+				LoginUserRequest loginUserRequest = new LoginUserRequest("!asd@naa.com", "testtesttest");
+				doReturn("FakeToken").when(userManagement).loginUser(loginUserCommandBy(loginUserRequest));
+			}
+
+			@Test
+			@DisplayName("해당 세션 토큰을 삭제하고, 204 상태 코드를 반환한다.")
+			void it_returns_status_code_204() throws Exception {
+				mockMvc
+					.perform(get("/api/v1/logout"))
+					.andDo(print())
+					.andExpect(status().isNoContent());
 			}
 		}
 	}
