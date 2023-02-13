@@ -1,0 +1,7 @@
+spring:
+  session:
+    store-type: redis # 스프링 부트는 해당 설정을 통해, @EnableRedisHttpSession 어노테이션을 수동으로 추가하는 것과 동일한 구성을 해줍니다.
+  data:
+    redis:
+      host: localhost
+      port: 6379
