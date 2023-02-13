@@ -8,11 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockHttpSession;
 
 import com.aorri2.goodsforyou.user.application.NewUserCreator;
 import com.aorri2.goodsforyou.user.application.NewUserFinder;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
 import com.aorri2.goodsforyou.user.application.UserManagement;
+import com.aorri2.goodsforyou.user.application.auth.AuthService;
+import com.aorri2.goodsforyou.user.application.auth.SessionAuthService;
 import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.application.facade.NewUserManagement;
@@ -35,6 +38,9 @@ class NewUserManagementTest {
 	List<UserPolicy> validityPolicyList;
 	List<LoginUserPolicy> loginUserPolicyList;
 	TokenGenerator tokenGenerator;
+	AuthService authService;
+
+	MockHttpSession session;
 	LoginUserCommand loginuserCommand;
 
 	@BeforeEach
@@ -47,7 +53,9 @@ class NewUserManagementTest {
 		loginUserPolicyList = List.of(new LoginUserEmailPolicy(finder), new LoginUserPasswordPolicy(finder));
 		validator = new NewUserValidator(validityPolicyList, loginUserPolicyList);
 		tokenGenerator = new UUIDTokenGenerator();
-		userManagement = new NewUserManagement(creator, validator, tokenGenerator);
+		session = new MockHttpSession();
+		authService = new SessionAuthService(session);
+		userManagement = new NewUserManagement(creator, validator, tokenGenerator, authService);
 		loginuserCommand = new LoginUserCommand("wook@test.com", "123123123");
 	}
 
