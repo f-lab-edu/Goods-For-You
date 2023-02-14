@@ -21,3 +21,6 @@
 .idea/**/gradle.xml
 .idea/**/libraries
 
+
+## DB 환경변수 파일(id, pwd)
+.env
