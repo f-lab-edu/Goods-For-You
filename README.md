@@ -15,14 +15,22 @@ K-POP 스타뿐만 아니라 인플루언서 및 스포츠스타들의 굿즈 �
 
 ### 재사용과 유지보수에 용이한 구조를 설계하고 코드를 작성하려 합니다.
 
-## 프로젝트 Wiki
+- Layered Architecture의 단점을 보완하기 위해 Hexagonal Architecture를 적용하여, 외부 환경의 변화에 애플리케이션 코드가 영향을 받지 않도록 구현하려 했습니다.
+
+### 테스트의 중요성
+
+- 테스트의 중요성을 깨닫기 위해,  프로젝트에서는 테스트 커버리지를 70% 이상을 유지하기 위해, Jacoco와 Github Action을 이용해, 테스트 커버리지가 70% 이상을 유지하지 못할 시, 해당 코드는 빌드 실패하도록 Github Action을 설정했습니다.
+- 테스트 커버리지를 유지하고, 테스트 코드를 작성하면서 테스트에 대해 개인적인 생각을 정리한 블로그 입니다.[링크(추후 수정해야됨)](https://simgee.tistory.com)
+
+## 프로젝트 문서화
 
 - 프로젝트를 진행하면서 작성한 부가적인 내용들을 위키에 정리하였습니다.
 - 해당 [링크](https://github.com/f-lab-edu/Goods-For-You/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B4%80%EB%A0%A8-%EC%BB%A8%EB%B2%A4%EC%85%98-&-Rule)를 참고해주세요😊
 
 ## 프로젝트를 진행하면서 발생한 이슈에 대한 고민과 해결 과정
+
 - [서버 확장 전략 어떤걸 선택해야할까?](https://simgee.tistory.com/32)
-  
+
 
 ## 🛠사용 기술
 
@@ -30,6 +38,9 @@ K-POP 스타뿐만 아니라 인플루언서 및 스포츠스타들의 굿즈 �
 - SpringBoot 3
 - Gradle
 - Mysql
+- Mybatis
+- Redis
+- Docker-Compose
 
 ## 프로젝트 화면 구성
 
