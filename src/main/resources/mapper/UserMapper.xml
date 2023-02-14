@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aorri2.goodsforyou.user.infrastructure.mybatis.MybatisUserMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO USER (name, email, password)
+        VALUES (#{name}, #{email}, #{password})
+    </insert>
+
+    <select id="findByName" resultType="NewUser">
+        select *
+        from USER
+        where name = #{name}
+    </select>
+    <select id="findByEmail" resultType="NewUser">
+        select *
+        from USER
+        where email = #{email}
+    </select>
+
+
+</mapper>
+
+
+        <!--
+        #{} 처럼 작성된 쿼리문은 PreparedStatement를 생성하게 됩니다. 이 때 'SELECT * from USER where name = ?' 와 같이 파라미터에 ?가
+        바인딩되어 수행됩니다. 이렇게 파싱된 쿼리문은 캐싱되기 때문에 성능상 효율적으로 작동합니다.
+
+        ${} 처럼 작성된 쿼리문은 값이 넣어진 채로 쿼리문이 수행됩니다. 그렇기 때문에 파라미터의 값이 바뀔 때마다 항상 쿼리문 파싱을 진행해야 하기 때문에
+        성능상 단점이 존재합니다. 또한 SQL Injection에 취약하다는 단점이 있습니다.
+        -->
