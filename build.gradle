@@ -21,6 +21,10 @@ dependencies {
     // spring의 session을 redis에서 관리하도록 하는 의존성입니다.
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 //    Redis를 사용하기 위한 스타터 의존성 입니다.(기본 내장 클라이언트 서버는 Lettuce입니다.)
+    implementation 'mysql:mysql-connector-java'
+    //mysql 의존성
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.1'
+    //Mybatis 의존성
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured:5.2.1'
