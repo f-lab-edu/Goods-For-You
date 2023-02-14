@@ -17,6 +17,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.2'
 //스프링 부트 버전2.3 버전부터는 명시적으로 spring-boot-starter-validation 의존성을 추가해 주어야 합니다
+    implementation 'org.springframework.session:spring-session-data-redis'
+    // spring의 session을 redis에서 관리하도록 하는 의존성입니다.
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+//    Redis를 사용하기 위한 스타터 의존성 입니다.(기본 내장 클라이언트 서버는 Lettuce입니다.)
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured:5.2.1'

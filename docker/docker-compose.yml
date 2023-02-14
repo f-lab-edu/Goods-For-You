@@ -1,0 +1,20 @@
+version: '3.7' #도커 컴포즈의 버전
+services: # 도커 컴포즈에서 사용할 컨테이너들의 집합을 정의합니다(컨테이너의 집합체를 주로 서비스라 합니다)
+  redis:
+    image: redis:7.0.4 #사용할 도커 이미지를 지정
+    command: redis-server --port 6379 #디폴트 커맨드를 덮어씁니다.
+    container_name: redis_standalone #컨테이너의 이름을 지정합니다.
+    hostname: redis_standalone # 컨테이너에 사용할 사용자 지정 호스트 이름을 지정합니다.
+    labels: #메타 데이터를 컨테이너에 추가합니다. 이 때 배열 또는 Map을 사용할 수 있습니다.
+      - "name=redis"
+      - "mode=standalone"
+    ports: # (HOST : CONTAINER)의 형식으로 두개의 포트를 모두 지정하거나, 컨테이너 포트만 지정할 수도 있습니다.
+      - 6379:6379
+
+
+
+
+
+# Docker - Compose
+# 다수의 도커 컨테이너들을 통합해서 관리해 주는 툴입니다.
+# 한 파일 안에 컨테이너 여러개의 설정 내용을 저장해서 연결시켜줍니다.
