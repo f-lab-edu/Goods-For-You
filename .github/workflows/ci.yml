@@ -9,15 +9,15 @@ on:
     branches:
       - main
       - develop
-env:
-  SPRING_DATASOURCE_USERNAME: '${{secrets.SPRING_DATASOURCE_USERNAME}}'
-  SPRING_DATASOURCE_PASSWORD: '${{secrets.SPRING_DATASOURCE_PASSWORD}}'
   
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      SPRING_DATASOURCE_USERNAME: '${{secrets.SPRING_DATASOURCE_USERNAME}}'
+      SPRING_DATASOURCE_PASSWORD: '${{secrets.SPRING_DATASOURCE_PASSWORD}}'
     
     steps:
       - name: get repository
