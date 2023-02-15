@@ -8,8 +8,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/GoodsForYou
-    username: 'admin'
-    password: '1234'
+    username: admin
+    password: 1234
   sql:
     init:
       mode: always
