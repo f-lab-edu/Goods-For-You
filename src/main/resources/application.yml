@@ -5,11 +5,13 @@ spring:
     redis:
       host: localhost
       port: 6379
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/GoodsForYou
-    username: ${SPRING_DATASOURCE_USERNAME} #해당 변수들(username,password)은 Intelij 실행 시 환경 변수로 등록 했습니다.
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    username: admin
+    password: 1234
+
   sql:
     init:
       mode: always
