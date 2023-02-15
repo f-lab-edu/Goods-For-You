@@ -12,10 +12,6 @@ spring:
     username: admin
     password: 1234
 
-  sql:
-    init:
-      mode: always
-      schema-locations: classpath:schema.sql #스프링 부트 로딩 시, 기존 테이블을 삭제하고 새로 생성 하기 위해 해당 구문을 추가했습니다.
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
