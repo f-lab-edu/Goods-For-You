@@ -37,7 +37,9 @@ jobs:
           character set server: 'utf8'
           mysql database: 'GoodsForYou'
           mysql user: ${{secrets.SPRING_DATASOURCE_USERNAME}}
+          mysql root password: ${{secrets.SPRING_DATASOURCE_PASSWORD}}
           mysql password: ${{secrets.SPRING_DATASOURCE_PASSWORD}}
+          mysql version: '8.0.27'
 
       - name: grant permission to execute gradle command
         run: chmod +x gradlew
