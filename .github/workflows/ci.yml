@@ -31,6 +31,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Setup MySQL
+        uses:  samin/mysql-action@v1
+        with:
+          character set server: 'utf8'
+          mysql database: 'GoodsForYou'
+          mysql user: ${{secrets.SPRING_DATASOURCE_USERNAME}}
+          mysql password: ${{secrets.SPRING_DATASOURCE_PASSWORD}}
 
       - name: grant permission to execute gradle command
         run: chmod +x gradlew
