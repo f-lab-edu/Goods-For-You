@@ -21,9 +21,9 @@ jobs:
         with:
           mysql version: '8.0.27'
           mysql database: GoodsForYou
-          mysql user: 'admin'
-          mysql root password: '1234'
-          mysql password: '1234'
+          mysql user: admin
+          mysql root password: 1234
+          mysql password: 1234
 
       - name: get repository
         uses: actions/checkout@v3
