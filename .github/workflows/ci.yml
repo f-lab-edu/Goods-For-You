@@ -16,17 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Setup mySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: '8.0.27'
+          mysql database: GoodsForYou
+          mysql user: 'root'
+          mysql password: '1234'
       - name: get repository
         uses: actions/checkout@v3
         with:
           token: ${{secrets.GOODSFORYOU_TOKEN}}
           submodules: recursive
-
-      - name: Build the Docker image
-      - run: docker-compose build
-
-      - name: up mysql and up redis
-        run: docker-compose up -d
 
       - name: install JDK 17
         uses: actions/setup-java@v3
