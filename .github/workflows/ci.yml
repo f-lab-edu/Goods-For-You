@@ -20,9 +20,9 @@ jobs:
         uses: mirromutth/mysql-action@v1.1
         with:
           mysql version: '8.0.27'
-          mysql db: GoodsForYou
+          mysql database: GoodsForYou
           mysql user: 'root'
-          mysql password: '1234'
+          mysql root password: '1234'
 
       - name: get repository
         uses: actions/checkout@v3
