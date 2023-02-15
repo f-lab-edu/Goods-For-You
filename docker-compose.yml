@@ -18,7 +18,8 @@ services: # 도커 컴포즈에서 사용할 컨테이너들의 집합을 정의
     image: aorri2/mysql
     environment:
       - MYSQL_DATABASE=GoodsForYou
-      - MYSQL_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=1234
     ports:
       - 3306:3306
 
