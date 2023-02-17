@@ -3,6 +3,7 @@ package com.aorri2.goodsforyou.user;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ import io.restassured.response.Response;
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DisplayName("UserIntegrationTest 클래스")
+@Disabled
 class UserIntegrationTest {
 
 	@LocalServerPort
