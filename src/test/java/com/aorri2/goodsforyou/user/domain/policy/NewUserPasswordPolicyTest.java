@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import com.aorri2.goodsforyou.user.application.policy.NewUserPasswordPolicy;
 import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.exception.InvalidPasswordException;

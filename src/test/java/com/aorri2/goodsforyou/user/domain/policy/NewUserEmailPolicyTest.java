@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.aorri2.goodsforyou.user.application.NewUserFinder;
+import com.aorri2.goodsforyou.user.application.policy.NewUserEmailPolicy;
 import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;

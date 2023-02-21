@@ -1,11 +1,10 @@
-package com.aorri2.goodsforyou.user.domain.config;
+package com.aorri2.goodsforyou.user.application.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.aorri2.goodsforyou.user.application.policy.LoginUserEmailPolicy;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
-import com.aorri2.goodsforyou.user.domain.policy.LoginUserEmailPolicy;
-import com.aorri2.goodsforyou.user.domain.policy.LoginUserPasswordPolicy;
 
 @Configuration
 public class LoginUserPolicyConfig {
@@ -15,8 +14,4 @@ public class LoginUserPolicyConfig {
 		return new LoginUserEmailPolicy(userFinder);
 	}
 
-	@Bean
-	public LoginUserPasswordPolicy loginUserPasswordPolicy(UserFinder userFinder) {
-		return new LoginUserPasswordPolicy(userFinder);
-	}
 }
