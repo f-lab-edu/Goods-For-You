@@ -19,11 +19,11 @@ import com.aorri2.goodsforyou.user.application.auth.SessionAuthService;
 import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.application.facade.NewUserManagement;
-import com.aorri2.goodsforyou.user.domain.policy.LoginUserEmailPolicy;
-import com.aorri2.goodsforyou.user.domain.policy.LoginUserPasswordPolicy;
-import com.aorri2.goodsforyou.user.domain.policy.NewUserEmailPolicy;
-import com.aorri2.goodsforyou.user.domain.policy.NewUserNamePolicy;
-import com.aorri2.goodsforyou.user.domain.policy.NewUserPasswordPolicy;
+import com.aorri2.goodsforyou.user.application.policy.LoginUserEmailPolicy;
+import com.aorri2.goodsforyou.user.application.policy.NewUserEmailPolicy;
+import com.aorri2.goodsforyou.user.application.policy.NewUserNamePolicy;
+import com.aorri2.goodsforyou.user.application.policy.NewUserPasswordPolicy;
+import com.aorri2.goodsforyou.user.infrastructure.encrypt.BcryptPasswordEncoder;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserManagement 클래스")
@@ -42,6 +42,7 @@ class NewUserManagementTest {
 
 	MockHttpSession session;
 	LoginUserCommand loginuserCommand;
+	PasswordEncoder passwordEncoder;
 
 	@BeforeEach
 	void setUp() {
@@ -50,12 +51,14 @@ class NewUserManagementTest {
 		finder = new NewUserFinder(userRepositoryPort);
 		validityPolicyList = List.of(new NewUserEmailPolicy(finder), new NewUserNamePolicy(finder),
 			new NewUserPasswordPolicy());
-		loginUserPolicyList = List.of(new LoginUserEmailPolicy(finder), new LoginUserPasswordPolicy(finder));
+		loginUserPolicyList = List.of(new LoginUserEmailPolicy(finder));
 		validator = new NewUserValidator(validityPolicyList, loginUserPolicyList);
 		tokenGenerator = new UUIDTokenGenerator();
 		session = new MockHttpSession();
 		authService = new SessionAuthService(session);
-		userManagement = new NewUserManagement(creator, validator, tokenGenerator, authService);
+		passwordEncoder = new BcryptPasswordEncoder();
+		userManagement = new NewUserManagement(creator, validator, tokenGenerator, authService, passwordEncoder,
+			finder);
 		loginuserCommand = new LoginUserCommand("wook@test.com", "123123123");
 	}
 
