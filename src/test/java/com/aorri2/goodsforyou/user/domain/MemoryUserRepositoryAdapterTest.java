@@ -20,7 +20,7 @@ class MemoryUserRepositoryAdapterTest {
 	@BeforeEach
 	void setUp() {
 		memoryUserRepositoryAdapter = new MemoryUserRepositoryAdapter();
-		user1 = new NewUser("wook2@naver.com", "wook", "121211");
+		user1 = new NewUser("tester@naver.com", "tester", "121211");
 		user2 = new NewUser("jong@naver.com", "jong", "12345667");
 		user3 = new NewUser("hwang@naver.com", "hwang", "13209848s!");
 	}
@@ -41,7 +41,7 @@ class MemoryUserRepositoryAdapterTest {
 				memoryUserRepositoryAdapter.save(user2);
 				memoryUserRepositoryAdapter.save(user3);
 
-				User foundUser1 = memoryUserRepositoryAdapter.findByName("wook");
+				User foundUser1 = memoryUserRepositoryAdapter.findByName("tester");
 				User foundUser2 = memoryUserRepositoryAdapter.findByName("jong");
 				User foundUser3 = memoryUserRepositoryAdapter.findByName("hwang");
 
@@ -68,7 +68,7 @@ class MemoryUserRepositoryAdapterTest {
 				memoryUserRepositoryAdapter.save(user2);
 				memoryUserRepositoryAdapter.save(user3);
 
-				User foundUser1 = memoryUserRepositoryAdapter.findByName("wook");
+				User foundUser1 = memoryUserRepositoryAdapter.findByName("tester");
 				User foundUser2 = memoryUserRepositoryAdapter.findByName("jong");
 				User foundUser3 = memoryUserRepositoryAdapter.findByName("hwang");
 
@@ -94,7 +94,7 @@ class MemoryUserRepositoryAdapterTest {
 				memoryUserRepositoryAdapter.save(user2);
 				memoryUserRepositoryAdapter.save(user3);
 
-				User foundByEmail1 = memoryUserRepositoryAdapter.findByEmail("wook2@naver.com");
+				User foundByEmail1 = memoryUserRepositoryAdapter.findByEmail("tester@naver.com");
 				User foundByEmail2 = memoryUserRepositoryAdapter.findByEmail("jong@naver.com");
 				User foundByEmail3 = memoryUserRepositoryAdapter.findByEmail("hwang@naver.com");
 
