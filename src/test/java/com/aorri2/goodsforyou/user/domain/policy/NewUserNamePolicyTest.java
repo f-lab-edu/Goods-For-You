@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.aorri2.goodsforyou.user.application.NewUserFinder;
+import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.application.policy.NewUserNamePolicy;
 import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.User;
@@ -52,9 +53,9 @@ class NewUserNamePolicyTest {
 			@DisplayName("HasDuplicatedNameException 던진다")
 			void it_throws_RuntimeException() {
 
-				User user = new NewUser("wook@naver.com", "wook", "123123");
+				CreateUserCommand userCommand = new CreateUserCommand("wook@naver.com", "wook", "123123");
 
-				assertThatThrownBy(() -> policy.apply(user)).isInstanceOf(DuplicatedNameException.class);
+				assertThatThrownBy(() -> policy.apply(userCommand)).isInstanceOf(DuplicatedNameException.class);
 			}
 		}
 	}

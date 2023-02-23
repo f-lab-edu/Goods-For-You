@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.aorri2.goodsforyou.user.application.NewUserFinder;
+import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.application.policy.NewUserEmailPolicy;
 import com.aorri2.goodsforyou.user.domain.NewUser;
 import com.aorri2.goodsforyou.user.domain.User;
@@ -51,18 +52,18 @@ class NewUserEmailPolicyTest {
 			@DisplayName("HasDuplicatedEmailException을 던진다")
 			void it_throws_HasDuplicatedEmailException() {
 
-				User user = new NewUser("wook@naver.com", "wook", "123123");
+				CreateUserCommand userCommand = new CreateUserCommand("wook@naver.com", "wook", "123123");
 
-				assertThatThrownBy(() -> policy.apply(user))
+				assertThatThrownBy(() -> policy.apply(userCommand))
 					.isInstanceOf(DuplicatedEmailException.class);
 			}
 
 			@Test
 			@DisplayName("이미 존재하는 이메일 입니다라는 에러 메시지를 가진다")
 			void it_has_customErrorMessage() {
-				User user = new NewUser("wook@naver.com", "wook", "123123");
+				CreateUserCommand userCommand = new CreateUserCommand("wook@naver.com", "wook", "123123");
 
-				assertThatThrownBy(() -> policy.apply(user))
+				assertThatThrownBy(() -> policy.apply(userCommand))
 					.isInstanceOf(DuplicatedEmailException.class).hasMessage("이미 존재하는 이메일 입니다.");
 			}
 
