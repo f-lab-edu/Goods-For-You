@@ -18,15 +18,15 @@ import com.aorri2.goodsforyou.user.application.policy.NewUserNamePolicy;
 import com.aorri2.goodsforyou.user.application.policy.NewUserPasswordPolicy;
 import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;
 import com.aorri2.goodsforyou.user.domain.NewUser;
+import com.aorri2.goodsforyou.user.domain.NewUserPolicy;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
-import com.aorri2.goodsforyou.user.domain.UserPolicy;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserValidator 클래스")
 class NewUserValidatorTest {
 
-	List<UserPolicy> validityPolicyList;
+	List<NewUserPolicy> validityPolicyList;
 
 	NewUserValidator validator;
 

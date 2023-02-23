@@ -7,23 +7,23 @@ import org.springframework.stereotype.Component;
 import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;
-import com.aorri2.goodsforyou.user.domain.UserPolicy;
+import com.aorri2.goodsforyou.user.domain.NewUserPolicy;
 import com.aorri2.goodsforyou.user.domain.UserValidator;
 
 @Component
 public class NewUserValidator implements UserValidator {
-	private final List<UserPolicy> validityPolicyList;
+	private final List<NewUserPolicy> validityPolicyList;
 	private final List<LoginUserPolicy> loginUserPolicyList;
 
-	public NewUserValidator(List<UserPolicy> validityPolicyList,
+	public NewUserValidator(List<NewUserPolicy> validityPolicyList,
 		List<LoginUserPolicy> loginUserPolicyList) {
 		this.validityPolicyList = validityPolicyList;
 		this.loginUserPolicyList = loginUserPolicyList;
 	}
 
 	@Override
-	public void checkUserValidity(CreateUserCommand user) {
-		validityPolicyList.forEach(policy -> policy.apply(user.toEntity()));
+	public void checkUserValidity(CreateUserCommand createUserCommand) {
+		validityPolicyList.forEach(policy -> policy.apply(createUserCommand));
 	}
 
 	@Override
