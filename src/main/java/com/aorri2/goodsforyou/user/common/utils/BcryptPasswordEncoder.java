@@ -1,18 +1,25 @@
-package com.aorri2.goodsforyou.user.infrastructure.encrypt;
+package com.aorri2.goodsforyou.user.common.utils;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import com.aorri2.goodsforyou.user.domain.PasswordEncoder;
+/**
+ * Password 암호화를 위한 Util 클래스 입니다.
+ *
+ */
+public class BcryptPasswordEncoder {
 
-public class BcryptPasswordEncoder implements PasswordEncoder {
+	/*
+	기본 생성자를 private 생성자로 변경함으로써, BcryptPasswordEncoder 클래스를
+	extend해, 확장 하거나 변경이 불가능 하도록 했습니다.
+	 */
+	private BcryptPasswordEncoder() {
+	}
 
-	@Override
-	public String encrypt(String password) {
+	public static String encrypt(String password) {
 		return BCrypt.hashpw(password, BCrypt.gensalt());
 	}
 
-	@Override
-	public boolean match(String password, String encryptedPassword) {
+	public static boolean match(String password, String encryptedPassword) {
 		return BCrypt.checkpw(password, encryptedPassword);
 	}
 }
