@@ -23,7 +23,6 @@ import com.aorri2.goodsforyou.user.application.policy.LoginUserEmailPolicy;
 import com.aorri2.goodsforyou.user.application.policy.NewUserEmailPolicy;
 import com.aorri2.goodsforyou.user.application.policy.NewUserNamePolicy;
 import com.aorri2.goodsforyou.user.application.policy.NewUserPasswordPolicy;
-import com.aorri2.goodsforyou.user.infrastructure.encrypt.BcryptPasswordEncoder;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserManagement 클래스")
@@ -35,14 +34,13 @@ class NewUserManagementTest {
 	UserManagement userManagement;
 	UserRepositoryPort userRepositoryPort;
 
-	List<UserPolicy> validityPolicyList;
+	List<NewUserPolicy> validityPolicyList;
 	List<LoginUserPolicy> loginUserPolicyList;
 	TokenGenerator tokenGenerator;
 	AuthService authService;
 
 	MockHttpSession session;
 	LoginUserCommand loginuserCommand;
-	PasswordEncoder passwordEncoder;
 
 	@BeforeEach
 	void setUp() {
@@ -56,9 +54,7 @@ class NewUserManagementTest {
 		tokenGenerator = new UUIDTokenGenerator();
 		session = new MockHttpSession();
 		authService = new SessionAuthService(session);
-		passwordEncoder = new BcryptPasswordEncoder();
-		userManagement = new NewUserManagement(creator, validator, tokenGenerator, authService, passwordEncoder,
-			finder);
+		userManagement = new NewUserManagement(creator, validator, tokenGenerator, authService);
 		loginuserCommand = new LoginUserCommand("wook@test.com", "123123123");
 	}
 
