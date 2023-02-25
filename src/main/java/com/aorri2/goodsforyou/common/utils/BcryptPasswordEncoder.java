@@ -1,4 +1,4 @@
-package com.aorri2.goodsforyou.user.common.utils;
+package com.aorri2.goodsforyou.common.utils;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 

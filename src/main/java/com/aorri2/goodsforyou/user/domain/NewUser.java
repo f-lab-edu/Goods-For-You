@@ -1,6 +1,6 @@
 package com.aorri2.goodsforyou.user.domain;
 
-import com.aorri2.goodsforyou.user.common.utils.BcryptPasswordEncoder;
+import com.aorri2.goodsforyou.common.utils.BcryptPasswordEncoder;
 
 public class NewUser implements User {
 	private Long id;

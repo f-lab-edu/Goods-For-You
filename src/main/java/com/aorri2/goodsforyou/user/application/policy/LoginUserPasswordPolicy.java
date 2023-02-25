@@ -1,7 +1,7 @@
 package com.aorri2.goodsforyou.user.application.policy;
 
+import com.aorri2.goodsforyou.common.utils.BcryptPasswordEncoder;
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
-import com.aorri2.goodsforyou.user.common.utils.BcryptPasswordEncoder;
 import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
