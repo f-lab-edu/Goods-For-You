@@ -45,4 +45,5 @@ public class NewUserManagement implements UserManagement {
 	public void logout() {
 		authService.logout();
 	}
+
 }

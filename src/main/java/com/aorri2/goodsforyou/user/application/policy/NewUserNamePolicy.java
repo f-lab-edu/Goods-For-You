@@ -1,11 +1,12 @@
-package com.aorri2.goodsforyou.user.domain.policy;
+package com.aorri2.goodsforyou.user.application.policy;
 
+import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
+import com.aorri2.goodsforyou.user.domain.NewUserPolicy;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
-import com.aorri2.goodsforyou.user.domain.UserPolicy;
 import com.aorri2.goodsforyou.user.domain.exception.DuplicatedNameException;
 
-public class NewUserNamePolicy implements UserPolicy {
+public class NewUserNamePolicy implements NewUserPolicy {
 	private final UserFinder userFinder;
 
 	public NewUserNamePolicy(UserFinder userFinder) {
@@ -13,7 +14,8 @@ public class NewUserNamePolicy implements UserPolicy {
 	}
 
 	@Override
-	public void apply(User user) {
+	public void apply(CreateUserCommand createUserCommand) {
+		User user = createUserCommand.toEntity();
 		if (userFinder.findByName(user.name()) != null) {
 			throw new DuplicatedNameException();
 		}

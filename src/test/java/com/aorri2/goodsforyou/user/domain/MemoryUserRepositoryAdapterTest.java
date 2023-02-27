@@ -13,16 +13,13 @@ import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryA
 class MemoryUserRepositoryAdapterTest {
 
 	private MemoryUserRepositoryAdapter memoryUserRepositoryAdapter;
-	private User user1;
-	private User user2;
-	private User user3;
+	User user1;
+	User user2;
+	User user3;
 
 	@BeforeEach
 	void setUp() {
 		memoryUserRepositoryAdapter = new MemoryUserRepositoryAdapter();
-		user1 = new NewUser("wook2@naver.com", "wook", "121211");
-		user2 = new NewUser("jong@naver.com", "jong", "12345667");
-		user3 = new NewUser("hwang@naver.com", "hwang", "13209848s!");
 	}
 
 	@Nested
@@ -33,6 +30,13 @@ class MemoryUserRepositoryAdapterTest {
 		@DisplayName("user 객체가 주어진다면")
 		class Context_with_real {
 
+			@BeforeEach
+			void setUp() {
+				user1 = new NewUser("tester@naver.com", "tester", "121211");
+				user2 = new NewUser("jong@naver.com", "jong", "12345667");
+				user3 = new NewUser("hwang@naver.com", "hwang", "13209848s!");
+			}
+
 			@Test
 			@DisplayName("사용자가 입력한 user 객체의 정보를 저장한다.")
 			void it_return_savedUserValue() {
@@ -41,7 +45,7 @@ class MemoryUserRepositoryAdapterTest {
 				memoryUserRepositoryAdapter.save(user2);
 				memoryUserRepositoryAdapter.save(user3);
 
-				User foundUser1 = memoryUserRepositoryAdapter.findByName("wook");
+				User foundUser1 = memoryUserRepositoryAdapter.findByName("tester");
 				User foundUser2 = memoryUserRepositoryAdapter.findByName("jong");
 				User foundUser3 = memoryUserRepositoryAdapter.findByName("hwang");
 
@@ -59,6 +63,12 @@ class MemoryUserRepositoryAdapterTest {
 		@Nested
 		@DisplayName("찾고자 하는 사용자의 이름이 주어진다면")
 		class Context_with_userName {
+			@BeforeEach
+			void setUp() {
+				user1 = new NewUser("tester@naver.com", "tester", "121211");
+				user2 = new NewUser("jong@naver.com", "jong", "12345667");
+				user3 = new NewUser("hwang@naver.com", "hwang", "13209848s!");
+			}
 
 			@Test
 			@DisplayName("이름에 해당하는 유저를 리턴한다.")
@@ -68,7 +78,7 @@ class MemoryUserRepositoryAdapterTest {
 				memoryUserRepositoryAdapter.save(user2);
 				memoryUserRepositoryAdapter.save(user3);
 
-				User foundUser1 = memoryUserRepositoryAdapter.findByName("wook");
+				User foundUser1 = memoryUserRepositoryAdapter.findByName("tester");
 				User foundUser2 = memoryUserRepositoryAdapter.findByName("jong");
 				User foundUser3 = memoryUserRepositoryAdapter.findByName("hwang");
 
@@ -83,6 +93,13 @@ class MemoryUserRepositoryAdapterTest {
 	@Nested
 	@DisplayName("findByEmail 메소드는")
 	class Describe_findByEmail {
+		@BeforeEach
+		void setUp() {
+			user1 = new NewUser("tester12@naver.com", "tester12", "121211");
+			user2 = new NewUser("jong12@naver.com", "jong12", "12345667");
+			user3 = new NewUser("hwang12@naver.com", "hwang12", "13209848s!");
+		}
+
 		@Nested
 		@DisplayName("찾고자 하는 사용자의 이름이 주어진다면")
 		class Context_with_userEmail {
@@ -94,9 +111,9 @@ class MemoryUserRepositoryAdapterTest {
 				memoryUserRepositoryAdapter.save(user2);
 				memoryUserRepositoryAdapter.save(user3);
 
-				User foundByEmail1 = memoryUserRepositoryAdapter.findByEmail("wook2@naver.com");
-				User foundByEmail2 = memoryUserRepositoryAdapter.findByEmail("jong@naver.com");
-				User foundByEmail3 = memoryUserRepositoryAdapter.findByEmail("hwang@naver.com");
+				User foundByEmail1 = memoryUserRepositoryAdapter.findByEmail("tester12@naver.com");
+				User foundByEmail2 = memoryUserRepositoryAdapter.findByEmail("jong12@naver.com");
+				User foundByEmail3 = memoryUserRepositoryAdapter.findByEmail("hwang12@naver.com");
 
 				checkSameUser(user1, foundByEmail1);
 				checkSameUser(user2, foundByEmail2);

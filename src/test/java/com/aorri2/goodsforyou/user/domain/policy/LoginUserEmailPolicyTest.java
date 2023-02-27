@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.aorri2.goodsforyou.user.application.NewUserFinder;
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
+import com.aorri2.goodsforyou.user.application.policy.LoginUserEmailPolicy;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;

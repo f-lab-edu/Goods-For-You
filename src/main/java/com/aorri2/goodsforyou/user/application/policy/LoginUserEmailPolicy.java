@@ -1,4 +1,4 @@
-package com.aorri2.goodsforyou.user.domain.policy;
+package com.aorri2.goodsforyou.user.application.policy;
 
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;

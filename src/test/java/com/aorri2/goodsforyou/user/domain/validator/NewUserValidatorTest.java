@@ -12,22 +12,21 @@ import org.junit.jupiter.api.Test;
 import com.aorri2.goodsforyou.user.application.NewUserFinder;
 import com.aorri2.goodsforyou.user.application.NewUserValidator;
 import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
+import com.aorri2.goodsforyou.user.application.policy.LoginUserEmailPolicy;
+import com.aorri2.goodsforyou.user.application.policy.NewUserEmailPolicy;
+import com.aorri2.goodsforyou.user.application.policy.NewUserNamePolicy;
+import com.aorri2.goodsforyou.user.application.policy.NewUserPasswordPolicy;
 import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;
 import com.aorri2.goodsforyou.user.domain.NewUser;
+import com.aorri2.goodsforyou.user.domain.NewUserPolicy;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
-import com.aorri2.goodsforyou.user.domain.UserPolicy;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
-import com.aorri2.goodsforyou.user.domain.policy.LoginUserEmailPolicy;
-import com.aorri2.goodsforyou.user.domain.policy.LoginUserPasswordPolicy;
-import com.aorri2.goodsforyou.user.domain.policy.NewUserEmailPolicy;
-import com.aorri2.goodsforyou.user.domain.policy.NewUserNamePolicy;
-import com.aorri2.goodsforyou.user.domain.policy.NewUserPasswordPolicy;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("NewUserValidator 클래스")
 class NewUserValidatorTest {
 
-	List<UserPolicy> validityPolicyList;
+	List<NewUserPolicy> validityPolicyList;
 
 	NewUserValidator validator;
 
@@ -37,12 +36,11 @@ class NewUserValidatorTest {
 
 	@BeforeEach
 	void setUp() {
-
 		userRepositoryPort = new MemoryUserRepositoryAdapter();
 		userFinder = new NewUserFinder(userRepositoryPort);
 		validityPolicyList = List.of(new NewUserEmailPolicy(userFinder), new NewUserNamePolicy(userFinder),
 			new NewUserPasswordPolicy());
-		loginUserPolicyList = List.of(new LoginUserEmailPolicy(userFinder), new LoginUserPasswordPolicy(userFinder));
+		loginUserPolicyList = List.of(new LoginUserEmailPolicy(userFinder));
 		validator = new NewUserValidator(validityPolicyList, loginUserPolicyList);
 	}
 

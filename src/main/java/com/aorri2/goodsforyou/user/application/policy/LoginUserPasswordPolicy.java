@@ -1,5 +1,6 @@
-package com.aorri2.goodsforyou.user.domain.policy;
+package com.aorri2.goodsforyou.user.application.policy;
 
+import com.aorri2.goodsforyou.common.utils.BcryptPasswordEncoder;
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;
 import com.aorri2.goodsforyou.user.domain.User;
@@ -17,14 +18,12 @@ public class LoginUserPasswordPolicy implements LoginUserPolicy {
 	public void apply(LoginUserCommand loginUserCommand) {
 		User foundByEmail = userFinder.findByEmail(loginUserCommand.getEmail());
 
-		if (foundByEmail != null) {
-			if (!isPasswordValid(loginUserCommand, foundByEmail)) {
-				throw new RuntimeException("비밀번호가 일치하지 않습니다.");
-			}
+		if (foundByEmail != null && !isPasswordValid(loginUserCommand, foundByEmail)) {
+			throw new RuntimeException("비밀번호가 일치하지 않습니다.");
 		}
 	}
 
-	private static boolean isPasswordValid(LoginUserCommand loginUserCommand, User foundUser) {
-		return foundUser.password().equals(loginUserCommand.getPassword());
+	private boolean isPasswordValid(LoginUserCommand loginUserCommand, User foundUser) {
+		return BcryptPasswordEncoder.match(loginUserCommand.getPassword(), foundUser.password());
 	}
 }
