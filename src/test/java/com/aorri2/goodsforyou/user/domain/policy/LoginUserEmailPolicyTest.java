@@ -12,6 +12,7 @@ import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.application.policy.LoginUserEmailPolicy;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
+import com.aorri2.goodsforyou.user.domain.exception.NotMatchedEmailException;
 import com.aorri2.goodsforyou.user.infrastructure.inmemory.MemoryUserRepositoryAdapter;
 
 @DisplayName("LoginUserEmailPolicy 클래스")
@@ -49,11 +50,11 @@ class LoginUserEmailPolicyTest {
 			}
 
 			@Test
-			@DisplayName("'유효하지 않은 회원 이메일 입니다.'라는 에러 메시지를 가진다")
+			@DisplayName("'이메일이 일치하지 않습니다.'라는 에러 메시지를 가진다")
 			void it_has_customErrorMessage() {
 				LoginUserCommand loginUserCommand = new LoginUserCommand("test@test.com", "testtest");
 				assertThatThrownBy(() -> policy.apply(loginUserCommand))
-					.isInstanceOf(RuntimeException.class).hasMessage("유효하지 않은 회원 이메일 입니다.");
+					.isInstanceOf(NotMatchedEmailException.class).hasMessage("이메일이 일치하지 않습니다.");
 			}
 
 		}
