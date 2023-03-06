@@ -4,6 +4,7 @@ import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
+import com.aorri2.goodsforyou.user.domain.exception.NotMatchedEmailException;
 
 public class LoginUserEmailPolicy implements LoginUserPolicy {
 
@@ -18,7 +19,7 @@ public class LoginUserEmailPolicy implements LoginUserPolicy {
 		User foundByEmail = userFinder.findByEmail(loginUserCommand.getEmail());
 
 		if (foundByEmail == null) {
-			throw new RuntimeException("유효하지 않은 회원 이메일 입니다.");
+			throw new NotMatchedEmailException();
 		}
 
 	}

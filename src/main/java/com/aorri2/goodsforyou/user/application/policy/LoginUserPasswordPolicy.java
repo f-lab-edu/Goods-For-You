@@ -5,6 +5,7 @@ import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.domain.LoginUserPolicy;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserFinder;
+import com.aorri2.goodsforyou.user.domain.exception.NotMatchedPasswordException;
 
 public class LoginUserPasswordPolicy implements LoginUserPolicy {
 
@@ -19,7 +20,7 @@ public class LoginUserPasswordPolicy implements LoginUserPolicy {
 		User foundByEmail = userFinder.findByEmail(loginUserCommand.getEmail());
 
 		if (foundByEmail != null && !isPasswordValid(loginUserCommand, foundByEmail)) {
-			throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+			throw new NotMatchedPasswordException();
 		}
 	}
 
