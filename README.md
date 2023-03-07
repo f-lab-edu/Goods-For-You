@@ -30,6 +30,11 @@ K-POP 스타뿐만 아니라 인플루언서 및 스포츠스타들의 굿즈 �
 ## 프로젝트를 진행하면서 발생한 이슈에 대한 고민과 해결 과정
 
 - [서버 확장 전략 어떤걸 선택해야할까?](https://simgee.tistory.com/32)
+- [다중 서버 환경에서 사용자 로그인 구현 시 세션 관리 방법으로 어떤걸 선택해야할까?](https://simgee.tistory.com/34)
+- [인증 방식으로 세션 VS 토큰 어떤걸 선택해야 할까?](https://simgee.tistory.com/35)
+- [GoodsForYou 패키지 구조에 대한 고민(포트와 어댑터)](https://simgee.tistory.com/41)
+- [CAP 이론을 바탕으로 NoSQL 을 적용 할 만한 포인트 고려](https://simgee.tistory.com/42)
+- [캐싱은 언제 적용하는게 좋을까?](https://simgee.tistory.com/43)
 
 
 ## 🛠사용 기술
