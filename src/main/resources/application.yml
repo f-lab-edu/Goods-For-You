@@ -12,6 +12,11 @@ spring:
     username: admin
     password: 1234
 
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
@@ -20,4 +25,3 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     #user_name(underscore 케이스) -> userName(카멜 케이스)로 변경해주는 설정입니다
-
