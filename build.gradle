@@ -1,22 +1,56 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.1'
-	id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.0.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'jacoco'
+    id "org.sonarqube" version "3.5.0.2730"
 }
 
 group = 'com.aorri2'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '17' //sourceCompatibility는 자바 소스 컴파일을 할 수 있는 버전을 명시할 때 사용합니다.(기본값은 현재 JVM 버전과 같습니다)
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.2'
+//스프링 부트 버전2.3 버전부터는 명시적으로 spring-boot-starter-validation 의존성을 추가해 주어야 합니다
+    implementation 'org.springframework.session:spring-session-data-redis'
+    // spring의 session을 redis에서 관리하도록 하는 의존성입니다.
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+//    Redis를 사용하기 위한 스타터 의존성 입니다.(기본 내장 클라이언트 서버는 Lettuce입니다.)
+    implementation 'mysql:mysql-connector-java'
+    //mysql 의존성
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.1'
+    //Mybatis 의존성
+    implementation 'org.springframework.security:spring-security-crypto'
+    //패스워드 암호화를 위한 스프링 시큐리티의 Crypto 의존성추가
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.rest-assured:rest-assured:5.2.1'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+sonar {
+  properties {
+    property "sonar.projectKey", "GoodsForYou"
+  }
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }
