@@ -27,6 +27,10 @@ dependencies {
     //Mybatis 의존성
     implementation 'org.springframework.security:spring-security-crypto'
     //패스워드 암호화를 위한 스프링 시큐리티의 Crypto 의존성추가
+
+
+    //테스트용 메모리 DB(H2) 의존성 추가
+    testRuntimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured:5.2.1'
 }
