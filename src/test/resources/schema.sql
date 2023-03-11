@@ -4,8 +4,8 @@ CREATE TABLE if not exists USER
     name       VARCHAR(100)    NOT NULL,
     email      VARCHAR(255)    NOT NULL UNIQUE,
     password   VARCHAR(255)    NOT NULL,
-    created_at DATETIME default current_timestamp,
-    updated_at DATETIME default current_timestamp on update current_timestamp,
+    created_at DATETIME,
+    updated_at DATETIME,
     PRIMARY KEY (id)
 );
 
@@ -22,8 +22,8 @@ CREATE TABLE if not exists PRODUCT
     category_id BIGINT unsigned NOT NULL,
     title       VARCHAR(100)    NOT NULL,
     price       BIGINT unsigned,
-    created_at  DATETIME default current_timestamp,
-    updated_at  DATETIME default current_timestamp on update current_timestamp,
+    created_at  DATETIME,
+    updated_at  DATETIME,
     primary key (id),
     foreign key (category_id) references CATEGORY (id)
 
@@ -35,9 +35,8 @@ CREATE TABLE if not exists PRODUCT_IMAGE
     product_id BIGINT unsigned NOT NULL,
     name       VARCHAR(100)    NOT NULL,
     url        VARCHAR(255)    NOT NULL,
-    created_at DATETIME default current_timestamp,
-    updated_at DATETIME default current_timestamp on update current_timestamp,
+    created_at DATETIME,
+    updated_at DATETIME,
     primary key (id),
     foreign key (product_id) references PRODUCT (id)
 );
-
