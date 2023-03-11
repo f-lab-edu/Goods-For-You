@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 
 public class Product {
 
+	private long id;
+
+	private int categoryId;
+
 	private String title;
 
 	private int price;
@@ -12,11 +16,29 @@ public class Product {
 
 	private LocalDateTime updatedAt;
 
-	public Product(String title, int price, LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public Product(int categoryId, String title, int price) {
+		this.categoryId = categoryId;
 		this.title = title;
 		this.price = price;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
-	
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
 }
