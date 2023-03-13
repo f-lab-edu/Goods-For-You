@@ -12,6 +12,12 @@ pipeline {
                 echo 'Git Checkout Success'
             }
         }
+        
+        stage('Check Java Version'){
+            steps {
+                sh 'java --version'
+            }
+        }
 
         stage('Gradle Test') {
             steps {
