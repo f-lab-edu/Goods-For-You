@@ -1,0 +1,58 @@
+name: CD GFY
+
+on:
+  push:
+    branches:
+      - 'develop'
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+      - 'develop'
+
+jobs:
+  cd:
+    runs-on: ubuntu-18.04
+  
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{secrets.GOODSFORYOU_TOKEN}}
+          submodules: recursive
+
+      - name: install JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: grant permission to execute gradle command
+        run: chmod +x gradlew
+        shell: bash
+
+      - name: Build with Gradle(without test)
+        run: ./gradlew build -x test
+        shell: bash
+
+      - name: prod env docker build & push
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{secrets.DOCKER_PASSWORD }}
+          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/goods-for-you .
+          docker push ${{ secrets.DOCKER_REPO }}/goods-for-you
+
+      - name: Deploy to Prod
+        uses: appleboy/ssh-action@master
+        id: deploy-prod
+        with:
+          host: ${{ secrets.NCP_PROD_SERVER_IP }}
+          username: ${{ secrets.NCP_PROD_SERVER_USER }}
+          password: ${{ secrets.NCP_PROD_SERVER_PASSWORD }}
+          port: ${{ secrets.NCP_PROD_SERVER_SSH_PORT }}
+          script: |
+             sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+             sudo docker rm -f $(docker ps -q -a)
+             sudo docker pull ${{ secrets.DOCKER_REPO }}/goods-for-you
+             docker-compose up -d
+             docker image prune -f
+      
