@@ -43,8 +43,8 @@ jobs:
       with:
         host: ${{ secrets.NCP_PROD_SERVER_IP }}
         username: ${{ secrets.NCP_PROD_SERVER_USER }}
-        password: ${{ secrets.NCP_DEV_SERVER_PASSWORD }}
-        port: ${{ secrets.NCP_DEV_SERVER_SSH_PORT }}
+        password: ${{ secrets.NCP_PROD_SERVER_PASSWORD }}
+        port: ${{ secrets.NCP_PROD_SERVER_SSH_PORT }}
         script: |
            sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
            sudo docker rm -f $(docker ps -q -a)
