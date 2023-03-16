@@ -1,19 +1,17 @@
 name: CD GFY
 
 on:
-  push:
-    branches:
-      - 'develop'
-      - 'main'
   pull_request:
     branches:
       - 'main'
-      - 'develop'
+    types:
+      - 'closed'
 
 jobs:
   cd:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-18.04
-  
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -32,7 +30,7 @@ jobs:
         shell: bash
 
       - name: Build with Gradle(without test)
-        run: ./gradlew build -x test
+        run: ./gradlew clean build -x test --stacktrace
         shell: bash
 
       - name: prod env docker build & push
@@ -50,9 +48,19 @@ jobs:
           password: ${{ secrets.NCP_PROD_SERVER_PASSWORD }}
           port: ${{ secrets.NCP_PROD_SERVER_SSH_PORT }}
           script: |
-             sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-             sudo docker rm -f $(docker ps -q -a)
-             sudo docker pull ${{ secrets.DOCKER_REPO }}/goods-for-you
-             docker-compose up -d
-             docker image prune -f
-      
+            sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            sudo docker rm -f $(docker ps -q -a)
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/goods-for-you
+            docker-compose up -d
+            docker image prune -f
+  
+  
+  
+
+  close_job_cd:
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-18.04
+
+    steps:
+      - run: |
+          echo PULL_REQUEST_NUMBER: #${{ github.event.number }} has been closed without being merged
