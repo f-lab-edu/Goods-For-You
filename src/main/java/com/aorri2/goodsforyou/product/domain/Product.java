@@ -16,6 +16,9 @@ public class Product {
 
 	private LocalDateTime updatedAt;
 
+	protected Product() {
+	}
+
 	public Product(int categoryId, String title, int price) {
 		this.categoryId = categoryId;
 		this.title = title;
