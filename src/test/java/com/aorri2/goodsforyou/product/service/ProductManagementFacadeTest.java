@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.aorri2.goodsforyou.common.exception.NotExistProductException;
 import com.aorri2.goodsforyou.product.application.command.CreateProductCommand;
 import com.aorri2.goodsforyou.product.application.facade.ProductManagementFacade;
 import com.aorri2.goodsforyou.product.domain.Product;
@@ -78,23 +79,14 @@ class ProductManagementFacadeTest {
 		}
 
 		@Nested
-		@DisplayName("유효하지 않은 상품 ID값이 주어진다면")
+		@DisplayName("존재하지 않는 상품 ID값이 주어진다면")
 		class Context_with_inValid_product_ID_value {
 
 			@Test
-			@DisplayName(" ... ")
-			void it_throw_() {
-
-				CreateProductCommand 상품요청 = 상품_요청_정상.상품_요청_생성().toCommand();
-				productManagementFacade.addProduct(상품요청);
-
-				Product foundProduct = productManagementFacade.retriveProduct(2L);
-
-				assertAll(
-					() -> assertThat(foundProduct.getTitle()).isEqualTo("상품1"),
-					() -> assertThat(foundProduct.getPrice()).isEqualTo(1000)
-				);
-
+			@DisplayName("NotExistProductException을 던진다")
+			void it_throws_NotExistProductException() {
+				assertThatThrownBy(() -> productManagementFacade.retriveProduct(0L)).isInstanceOf(
+					NotExistProductException.class);
 			}
 		}
 	}
