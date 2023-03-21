@@ -1,7 +1,8 @@
-package com.aorri2.goodsforyou.product.unit;
+package com.aorri2.goodsforyou.product.service;
 
 import static com.aorri2.goodsforyou.product.fixture.ProductFixture.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -9,7 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.aorri2.goodsforyou.common.exception.NotExistProductException;
+import com.aorri2.goodsforyou.product.application.command.CreateProductCommand;
 import com.aorri2.goodsforyou.product.application.facade.ProductManagementFacade;
+import com.aorri2.goodsforyou.product.domain.Product;
 import com.aorri2.goodsforyou.product.presentation.request.ProductRequest;
 
 @DisplayName("ProductProductManagement클래스")
@@ -49,4 +53,41 @@ class ProductManagementFacadeTest {
 		}
 	}
 
+	@Nested
+	@DisplayName("retrieveProduct 메서드는")
+	class Describe_retrieveProduct {
+
+		@Nested
+		@DisplayName("유효한 상품 ID값이 주어진다면")
+		class Context_with_valid_product_ID_value {
+
+			@Test
+			@DisplayName("상품 ID값에 해당하는 상품 객체를 정상적으로 반환한다.")
+			void it_return_correct_product_object() {
+
+				CreateProductCommand 상품요청 = 상품_요청_정상.상품_요청_생성().toCommand();
+				productManagementFacade.addProduct(상품요청);
+
+				Product foundProduct = productManagementFacade.retriveProduct(1L);
+
+				assertAll(
+					() -> assertThat(foundProduct.getTitle()).isEqualTo("상품1"),
+					() -> assertThat(foundProduct.getPrice()).isEqualTo(1000)
+				);
+
+			}
+		}
+
+		@Nested
+		@DisplayName("존재하지 않는 상품 ID값이 주어진다면")
+		class Context_with_inValid_product_ID_value {
+
+			@Test
+			@DisplayName("NotExistProductException을 던진다")
+			void it_throws_NotExistProductException() {
+				assertThatThrownBy(() -> productManagementFacade.retriveProduct(0L)).isInstanceOf(
+					NotExistProductException.class);
+			}
+		}
+	}
 }

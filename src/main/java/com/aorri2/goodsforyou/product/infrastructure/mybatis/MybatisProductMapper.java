@@ -2,6 +2,7 @@ package com.aorri2.goodsforyou.product.infrastructure.mybatis;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import com.aorri2.goodsforyou.product.domain.Product;
 
@@ -10,4 +11,7 @@ public interface MybatisProductMapper {
 
 	@Insert("insert into PRODUCT (category_id,title,price) values (#{categoryId},#{title},#{price})")
 	void save(Product product);
+
+	@Select("select * from PRODUCT where id = #{productId}")
+	Product findById(long productId);
 }
