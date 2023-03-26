@@ -13,6 +13,12 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.2'
@@ -28,9 +34,12 @@ dependencies {
     implementation 'org.springframework.security:spring-security-crypto'
     //패스워드 암호화를 위한 스프링 시큐리티의 Crypto 의존성추가
 
-
-    //테스트용 메모리 DB(H2) 의존성 추가
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    //log4j2 의존성
+    implementation 'org.apache.logging.log4j:log4j-layout-template-json:2.20.0'
+    //log 파일 json 형식 출력을 위한 의존성 추가
     testRuntimeOnly 'com.h2database:h2'
+    //테스트용 메모리 DB(H2) 의존성 추가
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured:5.2.1'
 }
