@@ -3,7 +3,7 @@
     <Properties>
         <Property name="layoutPattern">%style{%d{yyyy/MM/dd HH:mm:ss,SSS}}{cyan} %highlight{[%-5p]}{FATAL=bg_red,
             ERROR=red,
-            INFO=green, DEBUG=blue} [%C] %style{[%t]}{yellow}- %m%n
+            INFO=green, DEBUG=blue} [%equals{%X{request_id}}{}{startup}] [%C] %style{[%t]}{yellow}- %m%n
         </Property>
     </Properties>
 
@@ -14,7 +14,9 @@
         <RollingFile name="FileAppender"
                      fileName="logs/app.log"
                      filePattern="logs/GoodsForYou-%d{yyyy-MM-dd}-%i.log">
-            <JsonLayout complete="false" compact="false" charset="UTF-8"/>
+            <JsonLayout complete="false" compact="false" charset="UTF-8">
+                <KeyValuePair key="TraceID" value="$${ctx:request_id:-startUp}"/>
+            </JsonLayout>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1"/>
                 <SizeBasedTriggeringPolicy size="10000KB"/>
