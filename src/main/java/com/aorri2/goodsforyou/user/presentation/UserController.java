@@ -1,5 +1,7 @@
 package com.aorri2.goodsforyou.user.presentation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +20,7 @@ import com.aorri2.goodsforyou.user.presentation.request.NewUserRequest;
 public class UserController {
 
 	private final UserManagement userManagement;
+	private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	public UserController(UserManagement userManagement) {
 		this.userManagement = userManagement;
@@ -25,8 +28,9 @@ public class UserController {
 
 	@PostMapping("/users")
 	public ResponseEntity<NewUserRequest> register(@RequestBody @Validated NewUserRequest request) {
+		logger.info("register method start");
 		userManagement.joinUser(request.toCommand());
-
+		logger.info("register method end, request name = {}", request.getName());
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
