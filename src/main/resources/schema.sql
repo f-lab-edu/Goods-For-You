@@ -41,3 +41,20 @@ CREATE TABLE if not exists PRODUCT_IMAGE
     foreign key (product_id) references PRODUCT (id)
 );
 
+CREATE TABLE if not exists TRADE
+(
+    id                           BIGINT unsigned                 NOT NULL AUTO_INCREMENT,
+    buyer_id                     BIGINT unsigned                 NOT NULL,
+    seller_id                    BIGINT unsigned                 NOT NULL,
+    product_id                   BIGINT unsigned                 NOT NULL,
+    transaction_date             DATETIME                        NOT NULL,
+    transaction_status           ENUM ('거래 전','거래 진행 중','거래 완료') NOT NULL,
+    transaction_product_quantity INT UNSIGNED,
+    created_at                   DATETIME default current_timestamp,
+    updated_at                   DATETIME default current_timestamp on update current_timestamp,
+    primary key (id),
+    foreign key (buyer_id) references USER (id),
+    foreign key (seller_id) references USER (id),
+    foreign key (product_id) references USER (id)
+);
+
