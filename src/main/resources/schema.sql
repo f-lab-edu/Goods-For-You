@@ -18,12 +18,13 @@ CREATE TABLE if not exists CATEGORY
 
 CREATE TABLE if not exists PRODUCT
 (
-    id          BIGINT unsigned NOT NULL AUTO_INCREMENT,
-    category_id BIGINT unsigned NOT NULL,
-    title       VARCHAR(100)    NOT NULL,
-    price       BIGINT unsigned,
-    created_at  DATETIME default current_timestamp,
-    updated_at  DATETIME default current_timestamp on update current_timestamp,
+    id             BIGINT unsigned             NOT NULL AUTO_INCREMENT,
+    category_id    BIGINT unsigned             NOT NULL,
+    title          VARCHAR(100)                NOT NULL,
+    price          BIGINT unsigned,
+    product_status varchar(50) default "구매 가능" not null,
+    created_at     DATETIME    default current_timestamp,
+    updated_at     DATETIME    default current_timestamp on update current_timestamp,
     primary key (id),
     foreign key (category_id) references CATEGORY (id)
 
@@ -43,15 +44,15 @@ CREATE TABLE if not exists PRODUCT_IMAGE
 
 CREATE TABLE if not exists TRADE
 (
-    id                           BIGINT unsigned                 NOT NULL AUTO_INCREMENT,
-    buyer_id                     BIGINT unsigned                 NOT NULL,
-    seller_id                    BIGINT unsigned                 NOT NULL,
-    product_id                   BIGINT unsigned                 NOT NULL,
-    transaction_date             DATETIME                        NOT NULL,
-    transaction_status           ENUM ('거래 전','거래 진행 중','거래 완료') NOT NULL,
+    id                           BIGINT unsigned            NOT NULL AUTO_INCREMENT,
+    buyer_id                     BIGINT unsigned            NOT NULL,
+    seller_id                    BIGINT unsigned            NOT NULL,
+    product_id                   BIGINT unsigned            NOT NULL,
+    transaction_date             DATETIME                   NOT NULL,
+    transaction_status           varchar(50) default "거래 전" not null,
     transaction_product_quantity INT UNSIGNED,
-    created_at                   DATETIME default current_timestamp,
-    updated_at                   DATETIME default current_timestamp on update current_timestamp,
+    created_at                   DATETIME    default current_timestamp,
+    updated_at                   DATETIME    default current_timestamp on update current_timestamp,
     primary key (id),
     foreign key (buyer_id) references USER (id),
     foreign key (seller_id) references USER (id),
