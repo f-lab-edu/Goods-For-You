@@ -12,6 +12,8 @@ public class Product {
 
 	private int price;
 
+	private ProductStatus productStatus;
+
 	private LocalDateTime createdAt;
 
 	private LocalDateTime updatedAt;
@@ -23,6 +25,7 @@ public class Product {
 		this.categoryId = categoryId;
 		this.title = title;
 		this.price = price;
+		this.productStatus = ProductStatus.BUY_AVAILABLE;
 	}
 
 	public int getCategoryId() {
@@ -43,5 +46,9 @@ public class Product {
 
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
+	}
+
+	public ProductStatus getProductStatus() {
+		return productStatus;
 	}
 }
