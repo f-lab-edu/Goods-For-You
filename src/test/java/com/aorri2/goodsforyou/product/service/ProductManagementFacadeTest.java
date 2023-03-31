@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.aorri2.goodsforyou.common.exception.NotExistProductException;
 import com.aorri2.goodsforyou.product.application.command.CreateProductCommand;
 import com.aorri2.goodsforyou.product.application.facade.ProductManagementFacade;
 import com.aorri2.goodsforyou.product.domain.Product;
+import com.aorri2.goodsforyou.product.domain.exception.NotExistProductException;
 import com.aorri2.goodsforyou.product.presentation.request.ProductRequest;
 
 @DisplayName("ProductProductManagement클래스")

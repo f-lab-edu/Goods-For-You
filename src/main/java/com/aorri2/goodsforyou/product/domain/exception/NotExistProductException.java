@@ -1,6 +1,6 @@
-package com.aorri2.goodsforyou.common.exception;
+package com.aorri2.goodsforyou.product.domain.exception;
 
-import com.aorri2.goodsforyou.product.domain.exception.ProductException;
+import com.aorri2.goodsforyou.common.exception.ErrorCode;
 
 public class NotExistProductException extends ProductException {
 	public NotExistProductException() {
