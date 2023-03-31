@@ -10,7 +10,10 @@ public enum ErrorCode {
 	NOT_MATCHED_EMAIL("이메일이 일치하지 않습니다."),
 
 	//Product Error Code
-	NOT_EXIST_PRODUCT("해당 상품은 존재하지 않습니다.");
+	NOT_EXIST_PRODUCT("해당 상품은 존재하지 않습니다."),
+
+	//Transaction Error Code
+	UNAVAILABLE_PRODUCT("이미 판매 완료된 상품 입니다.");
 
 	private final String message;
 

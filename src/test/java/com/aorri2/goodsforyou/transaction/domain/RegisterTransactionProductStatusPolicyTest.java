@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import com.aorri2.goodsforyou.product.domain.Product;
 import com.aorri2.goodsforyou.product.domain.ProductFinder;
 import com.aorri2.goodsforyou.product.domain.ProductStatus;
+import com.aorri2.goodsforyou.transaction.domain.exception.UnAvailableProductException;
 
 @DisplayName("RegisterTransactionProductStatusPolicy 클래스의")
 class RegisterTransactionProductStatusPolicyTest {
@@ -37,10 +38,10 @@ class RegisterTransactionProductStatusPolicyTest {
 		class Context_with_product_status_is_not_available_for_purchase {
 			@Test
 			@DisplayName("exception을 던진다.")
-			void it_throws_exception() {
+			void it_throws_unAvailableProductException() {
 				Transaction transaction = createTransaction(ProductStatus.SOLD_COMPLETE);
 
-				assertThatThrownBy(() -> policy.apply(transaction)).isInstanceOf(RuntimeException.class);
+				assertThatThrownBy(() -> policy.apply(transaction)).isInstanceOf(UnAvailableProductException.class);
 			}
 		}
 
@@ -52,7 +53,7 @@ class RegisterTransactionProductStatusPolicyTest {
 			void it_execute_method_normally() {
 				Transaction transaction = createTransaction(ProductStatus.BUY_AVAILABLE);
 
-				assertThatThrownBy(() -> policy.apply(transaction)).isInstanceOf(RuntimeException.class);
+				policy.apply(transaction);
 			}
 		}
 
