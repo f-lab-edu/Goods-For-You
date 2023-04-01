@@ -1,7 +1,7 @@
 package com.aorri2.goodsforyou.product.domain;
 
 public enum ProductStatus {
-	BUY_AVAILABLE("구매 가능"),
+	TRADABLE("구매 가능"),
 	SOLD_COMPLETE("판매 완료"),
 	;
 	private final String status;
@@ -12,5 +12,9 @@ public enum ProductStatus {
 
 	public String getStatus() {
 		return status;
+	}
+
+	public static ProductStatus getInitValue() {
+		return TRADABLE;
 	}
 }
