@@ -1,4 +1,4 @@
-package com.aorri2.goodsforyou.transaction.domain;
+package com.aorri2.goodsforyou.transaction.unit.domain;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
@@ -14,6 +14,8 @@ import org.mockito.MockitoAnnotations;
 import com.aorri2.goodsforyou.product.domain.Product;
 import com.aorri2.goodsforyou.product.domain.ProductFinder;
 import com.aorri2.goodsforyou.product.domain.ProductStatus;
+import com.aorri2.goodsforyou.transaction.application.policy.RegisterTransactionProductStatusPolicy;
+import com.aorri2.goodsforyou.transaction.domain.Transaction;
 import com.aorri2.goodsforyou.transaction.domain.exception.UnAvailableProductException;
 
 @DisplayName("RegisterTransactionProductStatusPolicy 클래스의")
