@@ -25,7 +25,7 @@ public class Product {
 		this.categoryId = categoryId;
 		this.title = title;
 		this.price = price;
-		this.productStatus = ProductStatus.BUY_AVAILABLE;
+		this.productStatus = ProductStatus.getInitValue();
 	}
 
 	public int getCategoryId() {

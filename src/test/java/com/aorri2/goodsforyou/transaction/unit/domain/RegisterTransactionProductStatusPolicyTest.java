@@ -53,7 +53,7 @@ class RegisterTransactionProductStatusPolicyTest {
 			@Test
 			@DisplayName("정상적으로 메서드를 수행한다.")
 			void it_execute_method_normally() {
-				Transaction transaction = createTransaction(ProductStatus.BUY_AVAILABLE);
+				Transaction transaction = createTransaction(ProductStatus.getInitValue());
 
 				policy.apply(transaction);
 			}
