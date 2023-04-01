@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aorri2.goodsforyou.transaction.application.TransactionManagement;
 import com.aorri2.goodsforyou.transaction.presentation.request.CreateTransactionRequest;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1")
 public class TransactionController {
@@ -22,7 +24,7 @@ public class TransactionController {
 
 	@PostMapping("/transaction")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createTransaction(@RequestBody CreateTransactionRequest request) {
+	public void createTransaction(@RequestBody @Valid CreateTransactionRequest request) {
 		transactionManagement.registerTransaction(request.toCommand());
 	}
 }
