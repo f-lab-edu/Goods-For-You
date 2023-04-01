@@ -9,7 +9,7 @@ import com.aorri2.goodsforyou.product.domain.Product;
 @Mapper
 public interface MybatisProductMapper {
 
-	@Insert("insert into PRODUCT (category_id,title,price) values (#{categoryId},#{title},#{price})")
+	@Insert("insert into PRODUCT (category_id,title,price,product_status) values (#{categoryId},#{title},#{price},#{productStatus})")
 	void save(Product product);
 
 	@Select("select * from PRODUCT where id = #{productId}")
