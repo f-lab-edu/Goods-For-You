@@ -1,5 +1,6 @@
 package com.aorri2.goodsforyou.transaction.service;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import com.aorri2.goodsforyou.transaction.application.command.CreateTransactionC
 import com.aorri2.goodsforyou.transaction.domain.Transaction;
 import com.aorri2.goodsforyou.transaction.domain.TransactionCreator;
 import com.aorri2.goodsforyou.transaction.domain.TransactionValidator;
+import com.aorri2.goodsforyou.transaction.domain.exception.AlreadySoldProductException;
 
 @DisplayName("TransactionManagementFacade클래스")
 public class TransactionManagementFacadeTest {
@@ -53,11 +55,36 @@ public class TransactionManagementFacadeTest {
 				transactionManagementFacade.registerTransaction(createTransactionCommand);
 
 				InOrder inOrder = inOrder(transactionValidator, transactionCreator);
-
-				inOrder.verify(transactionValidator, times(1)).checkRegisterValidity(transaction);
-				inOrder.verify(transactionCreator, times(1)).save(transaction);
+				then(transactionValidator).should(inOrder, times(1)).checkRegisterValidity(transaction);
+				then(transactionCreator).should(inOrder, times(1)).save(transaction);
 			}
 
 		}
+
+		@Nested
+		@DisplayName("유효하지 않은 거래 정보가 주어지면")
+		class Context_with_invalid_transaction_request_information {
+			@Test
+			@DisplayName("AlreadySoldProductException을 던지며, save메서드가 호출되지 않는다.")
+			void it_throws_UnAvailableProductException_and_not_execute_save_method() {
+
+				CreateTransactionCommand createTransactionCommand = mock(CreateTransactionCommand.class);
+				Transaction transaction = createTransactionCommand.toEntity();
+
+				willThrow(AlreadySoldProductException.class).given(transactionValidator)
+					.checkRegisterValidity(transaction);
+				willDoNothing().given(transactionCreator).save(transaction);
+
+				assertThatThrownBy(
+					() -> transactionManagementFacade.registerTransaction(createTransactionCommand)
+				).isInstanceOf(AlreadySoldProductException.class);
+
+				InOrder inOrder = inOrder(transactionValidator, transactionCreator);
+				then(transactionValidator).should(inOrder, times(1)).checkRegisterValidity(transaction);
+				then(Describe_registerTransaction.this.transactionCreator).should(inOrder, never()).save(transaction);
+			}
+
+		}
+
 	}
 }
