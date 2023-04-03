@@ -16,7 +16,7 @@ import com.aorri2.goodsforyou.product.domain.ProductFinder;
 import com.aorri2.goodsforyou.product.domain.ProductStatus;
 import com.aorri2.goodsforyou.transaction.application.policy.RegisterTransactionProductStatusPolicy;
 import com.aorri2.goodsforyou.transaction.domain.Transaction;
-import com.aorri2.goodsforyou.transaction.domain.exception.UnAvailableProductException;
+import com.aorri2.goodsforyou.transaction.domain.exception.AlreadySoldProductException;
 
 @DisplayName("RegisterTransactionProductStatusPolicy 클래스의")
 class RegisterTransactionProductStatusPolicyTest {
@@ -43,7 +43,7 @@ class RegisterTransactionProductStatusPolicyTest {
 			void it_throws_unAvailableProductException() {
 				Transaction transaction = createTransaction(ProductStatus.SOLD_COMPLETE);
 
-				assertThatThrownBy(() -> policy.apply(transaction)).isInstanceOf(UnAvailableProductException.class);
+				assertThatThrownBy(() -> policy.apply(transaction)).isInstanceOf(AlreadySoldProductException.class);
 			}
 		}
 
