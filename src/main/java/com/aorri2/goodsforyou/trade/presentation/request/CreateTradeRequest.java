@@ -25,8 +25,19 @@ public class CreateTradeRequest {
 	private LocalDateTime tradeDate;
 
 	@Positive(message = "거래 상품의 수량은 0이상 입니다.")
-	@NotNull(message = "거래 상품의 수량은 필수 값 입니다.")
 	private int tradeProductQuantity;
+
+	public CreateTradeRequest() {
+	}
+
+	public CreateTradeRequest(Long buyerId, Long sellerId, Long productId, LocalDateTime tradeDate,
+		int tradeProductQuantity) {
+		this.buyerId = buyerId;
+		this.sellerId = sellerId;
+		this.productId = productId;
+		this.tradeDate = tradeDate;
+		this.tradeProductQuantity = tradeProductQuantity;
+	}
 
 	public Long getBuyerId() {
 		return buyerId;
