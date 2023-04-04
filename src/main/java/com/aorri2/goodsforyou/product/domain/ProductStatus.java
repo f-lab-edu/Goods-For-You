@@ -17,4 +17,8 @@ public enum ProductStatus {
 	public static ProductStatus getInitValue() {
 		return TRADABLE;
 	}
+
+	public boolean isTradable() {
+		return this.equals(TRADABLE);
+	}
 }
