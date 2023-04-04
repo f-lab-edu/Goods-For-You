@@ -47,6 +47,9 @@ dependencies {
     //테스트용 메모리 DB(H2) 의존성 추가
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured:5.2.1'
+
+    testCompileOnly "org.projectlombok:lombok:1.18.26"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.26"
 }
 
 tasks.named('test') {
