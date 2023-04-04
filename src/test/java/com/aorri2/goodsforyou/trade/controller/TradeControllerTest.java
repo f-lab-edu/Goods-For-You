@@ -137,9 +137,13 @@ public class TradeControllerTest {
 			@DisplayName("AlreadySoldProductException을 던지고, 상태코드 400과 에러 코드 'TRADE-001'을 반환한다.")
 			void it_register_trade_and_return_status_code_200() throws Exception {
 
-				CreateTradeRequest createTradeRequest = new CreateTradeRequest(1L, 2L, 1L,
-					LocalDateTime.now().plusDays(1L),
-					10);
+				CreateTradeRequest createTradeRequest = CreateTradeRequest.builder()
+					.buyerId(1L)
+					.sellerId(2L)
+					.productId(1L)
+					.tradeDate(LocalDateTime.now().plusDays(1L))
+					.tradeProductQuantity(10)
+					.build();
 				willThrow(AlreadySoldProductException.class).given(tradeController).createTrade(any());
 				String requestBody = objectMapper.writeValueAsString(createTradeRequest);
 

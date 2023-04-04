@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import com.aorri2.goodsforyou.trade.domain.Trade;
 
+import lombok.Builder;
+
 public class CreateTradeCommand {
 	private Long buyerId;
 	private Long sellerId;
@@ -11,6 +13,7 @@ public class CreateTradeCommand {
 	private LocalDateTime tradeDate;
 	private int tradeProductQuantity;
 
+	@Builder
 	public CreateTradeCommand(Long buyerId, Long sellerId, Long productId, LocalDateTime tradeDate,
 		int tradeProductQuantity) {
 		this.buyerId = buyerId;
@@ -21,12 +24,11 @@ public class CreateTradeCommand {
 	}
 
 	public Trade toEntity() {
-		return new Trade(
-			this.buyerId,
-			this.sellerId,
-			this.productId,
-			this.tradeDate,
-			this.tradeProductQuantity
-		);
+		return Trade.builder().buyerId(this.buyerId)
+			.sellerId(this.sellerId)
+			.productId(this.productId)
+			.tradeDate(this.tradeDate)
+			.tradeProductQuantity(this.tradeProductQuantity)
+			.build();
 	}
 }

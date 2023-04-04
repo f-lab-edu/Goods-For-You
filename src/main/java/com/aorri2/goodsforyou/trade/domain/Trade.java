@@ -2,6 +2,8 @@ package com.aorri2.goodsforyou.trade.domain;
 
 import java.time.LocalDateTime;
 
+import lombok.Builder;
+
 public class Trade {
 
 	private Long id;
@@ -17,6 +19,7 @@ public class Trade {
 	protected Trade() {
 	}
 
+	@Builder
 	public Trade(Long buyerId, Long sellerId, Long productId, LocalDateTime tradeDate,
 		int tradeProductQuantity) {
 		this.buyerId = buyerId;

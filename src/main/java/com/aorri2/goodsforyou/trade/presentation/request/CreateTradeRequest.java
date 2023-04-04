@@ -7,6 +7,7 @@ import com.aorri2.goodsforyou.trade.application.command.CreateTradeCommand;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Builder;
 
 public class CreateTradeRequest {
 
@@ -30,6 +31,7 @@ public class CreateTradeRequest {
 	public CreateTradeRequest() {
 	}
 
+	@Builder
 	public CreateTradeRequest(Long buyerId, Long sellerId, Long productId, LocalDateTime tradeDate,
 		int tradeProductQuantity) {
 		this.buyerId = buyerId;
@@ -60,13 +62,12 @@ public class CreateTradeRequest {
 	}
 
 	public CreateTradeCommand toCommand() {
-		return new CreateTradeCommand(
-			this.buyerId,
-			this.sellerId,
-			this.productId,
-			this.tradeDate,
-			this.tradeProductQuantity
-		);
+		return CreateTradeCommand.builder().buyerId(this.buyerId)
+			.sellerId(this.sellerId)
+			.productId(this.productId)
+			.tradeDate(this.tradeDate)
+			.tradeProductQuantity(this.tradeProductQuantity)
+			.build();
 	}
 
 }
