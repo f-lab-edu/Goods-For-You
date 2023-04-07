@@ -68,7 +68,7 @@ class ProductManagementFacadeTest {
 				CreateProductCommand 상품요청 = 상품_요청_정상.상품_요청_생성().toCommand();
 				productManagementFacade.addProduct(상품요청);
 
-				Product foundProduct = productManagementFacade.retriveProduct(1L);
+				Product foundProduct = productManagementFacade.retriveProduct(3L);
 
 				assertAll(
 					() -> assertThat(foundProduct.getTitle()).isEqualTo("상품1"),
