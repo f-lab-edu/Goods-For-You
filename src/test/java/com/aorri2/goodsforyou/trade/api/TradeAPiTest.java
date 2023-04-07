@@ -52,8 +52,8 @@ public class TradeAPiTest extends ApiTest {
 		@DisplayName("정상적이지 않은 거래 정보가 주어진다면")
 		class Context_with_invalid_trade_information {
 			@Test
-			@DisplayName("거래등록에 실패하고, 상태코드 500을 반환한다")
-			void it_execute_normally_and_return_status_code_500() {
+			@DisplayName("거래등록에 실패하고, 상태코드 400을 반환한다")
+			void it_execute_normally_and_return_status_code_400() {
 				//given
 				CreateTradeRequest tradeRequest = 거래_요청_상품상태_비정상.거래_요청_생성();
 
@@ -67,7 +67,7 @@ public class TradeAPiTest extends ApiTest {
 					.log().all().extract();
 
 				//then
-				assertThat(response.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+				assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
 			}
 		}
 	}
