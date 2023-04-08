@@ -12,7 +12,7 @@ public enum ErrorCode {
 	//Product Error Code
 	NOT_EXIST_PRODUCT("해당 상품은 존재하지 않습니다."),
 
-	//Transaction Error Code
+	//Trade Error Code
 	ALREADY_SOLD_PRODUCT("이미 판매 완료된 상품 입니다.");
 
 	private final String message;
