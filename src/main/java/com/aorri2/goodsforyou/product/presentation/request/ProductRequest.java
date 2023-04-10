@@ -5,7 +5,9 @@ import org.hibernate.validator.constraints.Range;
 import com.aorri2.goodsforyou.product.application.command.CreateProductCommand;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.ToString;
 
+@ToString
 public class ProductRequest {
 
 	@Range(min = 1, message = "카테고리 ID는 최소 1이상 입니다.")

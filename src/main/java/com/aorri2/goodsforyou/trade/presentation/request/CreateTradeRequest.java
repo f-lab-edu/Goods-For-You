@@ -8,7 +8,9 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Builder;
+import lombok.ToString;
 
+@ToString
 public class CreateTradeRequest {
 
 	@Positive(message = "구매자 ID값은 0보다 커야 합니다.")

@@ -11,7 +11,9 @@ import com.aorri2.goodsforyou.trade.application.TradeManagement;
 import com.aorri2.goodsforyou.trade.presentation.request.CreateTradeRequest;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1")
 public class TradeController {
@@ -25,6 +27,7 @@ public class TradeController {
 	@PostMapping("/trade")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createTrade(@RequestBody @Valid CreateTradeRequest request) {
+		log.info("Request : Create Trade - {}", request);
 		tradeManagement.registerTrade(request.toCommand());
 	}
 }
