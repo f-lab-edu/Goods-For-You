@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.aorri2.goodsforyou.common.exception.NotExistProductException;
 import com.aorri2.goodsforyou.product.application.command.CreateProductCommand;
 import com.aorri2.goodsforyou.product.application.facade.ProductManagementFacade;
 import com.aorri2.goodsforyou.product.domain.Product;
+import com.aorri2.goodsforyou.product.domain.exception.NotExistProductException;
 import com.aorri2.goodsforyou.product.presentation.request.ProductRequest;
 
 @DisplayName("ProductProductManagement클래스")
@@ -68,7 +68,7 @@ class ProductManagementFacadeTest {
 				CreateProductCommand 상품요청 = 상품_요청_정상.상품_요청_생성().toCommand();
 				productManagementFacade.addProduct(상품요청);
 
-				Product foundProduct = productManagementFacade.retriveProduct(1L);
+				Product foundProduct = productManagementFacade.retriveProduct(3L);
 
 				assertAll(
 					() -> assertThat(foundProduct.getTitle()).isEqualTo("상품1"),

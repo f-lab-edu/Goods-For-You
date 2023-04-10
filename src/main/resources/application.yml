@@ -21,7 +21,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: com.aorri2.goodsforyou.user.domain, com.aorri2.goodsforyou.product.domain
+  type-aliases-package: com.aorri2.goodsforyou.user.domain, com.aorri2.goodsforyou.product.domain, com.aorri2.goodsforyou.trade.domain
   #type-alias를 통해, NewUser객체를 사용할 때 풀 패키지 네임이 아닌 NewUser만 명시해줘도 해당 객체를 찾아 올 수 있도록 위 구문을 작성 했습니다.
   configuration:
     map-underscore-to-camel-case: true
