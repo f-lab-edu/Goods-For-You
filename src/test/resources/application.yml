@@ -1,0 +1,28 @@
+spring:
+  session:
+    store-type: redis # 스프링 부트는 해당 설정을 통해, @EnableRedisHttpSession 어노테이션을 수동으로 추가하는 것과 동일한 구성을 해줍니다.
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MYSQL;NON_KEYWORDS=USER
+    username: sa
+    password:
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.aorri2.goodsforyou.user.domain, com.aorri2.goodsforyou.product.domain
+  #type-alias를 통해, NewUser객체를 사용할 때 풀 패키지 네임이 아닌 NewUser만 명시해줘도 해당 객체를 찾아 올 수 있도록 위 구문을 작성 했습니다.
+  configuration:
+    map-underscore-to-camel-case: true
+    #user_name(underscore 케이스) -> userName(카멜 케이스)로 변경해주는 설정입니다
+
