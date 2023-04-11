@@ -39,6 +39,8 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-layout-template-json:2.20.0'
     //log 파일 json 형식 출력을 위한 의존성 추가
 
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     // 컴파일 시, 롬복 애노테이션 프로세서 체크

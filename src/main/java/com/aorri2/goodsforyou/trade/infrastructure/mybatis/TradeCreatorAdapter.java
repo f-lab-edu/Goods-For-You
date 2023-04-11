@@ -2,10 +2,12 @@ package com.aorri2.goodsforyou.trade.infrastructure.mybatis;
 
 import org.springframework.stereotype.Repository;
 
+import com.aorri2.goodsforyou.common.annotation.ElapsedTime;
 import com.aorri2.goodsforyou.trade.domain.Trade;
 import com.aorri2.goodsforyou.trade.domain.TradeCreator;
 
 @Repository
+@ElapsedTime
 public class TradeCreatorAdapter implements TradeCreator {
 
 	private final MybatisTradeMapper mapper;
