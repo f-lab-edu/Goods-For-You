@@ -16,6 +16,7 @@
                      filePattern="logs/GoodsForYou-%d{yyyy-MM-dd}-%i.log">
             <JsonLayout complete="false" compact="false" charset="UTF-8">
                 <KeyValuePair key="TraceID" value="$${ctx:request_id:-startUp}"/>
+                <KeyValuePair key="StatusCode" value="$${ctx:status_code:-startUp}"/>
             </JsonLayout>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1"/>
