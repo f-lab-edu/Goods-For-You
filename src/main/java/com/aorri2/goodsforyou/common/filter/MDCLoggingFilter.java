@@ -31,6 +31,7 @@ public class MDCLoggingFilter implements Filter {
 		log.info("WrappedResponseStatusInFilter = {}", responseWrapper.getStatus());
 		MDC.put("request_id", randomUUID().toString());
 		chain.doFilter(request, responseWrapper);
+		responseWrapper.copyBodyToResponse();
 		MDC.clear();
 	}
 }
