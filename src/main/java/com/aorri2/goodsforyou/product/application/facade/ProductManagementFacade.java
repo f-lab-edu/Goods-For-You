@@ -1,6 +1,7 @@
 package com.aorri2.goodsforyou.product.application.facade;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aorri2.goodsforyou.product.application.ProductManagement;
 import com.aorri2.goodsforyou.product.application.command.CreateProductCommand;
@@ -23,11 +24,13 @@ public class ProductManagementFacade implements ProductManagement {
 	}
 
 	@Override
+	@Transactional
 	public void addProduct(CreateProductCommand command) {
 		productCreator.save(command.toEntity());
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Product retriveProduct(long productId) {
 		Product foundProductThroughId = productFinder.findById(productId);
 		productValidator.checkRetriveProductValidity(foundProductThroughId);

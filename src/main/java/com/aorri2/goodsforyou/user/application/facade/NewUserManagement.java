@@ -1,6 +1,7 @@
 package com.aorri2.goodsforyou.user.application.facade;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aorri2.goodsforyou.user.application.UserManagement;
 import com.aorri2.goodsforyou.user.application.auth.AuthService;
@@ -28,12 +29,14 @@ public class NewUserManagement implements UserManagement {
 	}
 
 	@Override
+	@Transactional
 	public void joinUser(CreateUserCommand command) {
 		userValidator.checkUserValidity(command);
 		userCreator.save(command.toEntity());
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public String loginUser(LoginUserCommand command) {
 		userValidator.checkLoginUserValidity(command);
 		String token = tokenGenerator.generate();

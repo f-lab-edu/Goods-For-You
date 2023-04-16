@@ -1,6 +1,7 @@
 package com.aorri2.goodsforyou.trade.application;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aorri2.goodsforyou.trade.application.command.CreateTradeCommand;
 import com.aorri2.goodsforyou.trade.domain.TradeCreator;
@@ -19,6 +20,7 @@ public class TradeManagementFacade implements TradeManagement {
 	}
 
 	@Override
+	@Transactional
 	public void registerTrade(CreateTradeCommand createTradeCommand) {
 		tradeValidator.checkRegisterValidity(createTradeCommand.toEntity());
 		tradeCreator.save(createTradeCommand.toEntity());
