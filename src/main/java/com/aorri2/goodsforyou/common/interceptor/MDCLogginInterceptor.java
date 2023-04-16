@@ -18,8 +18,8 @@ public class MDCLogginInterceptor implements HandlerInterceptor {
 		Exception ex) throws Exception {
 		ContentCachingResponseWrapper responseWrapper = getResponseWrapper(response);
 		int status = responseWrapper.getStatus();
-		log.info("statusCode in Interceptor = {}", status);
 		MDC.put("status_code", Integer.toString(status));
+		log.info("statusCode in Interceptor = {}", status);
 	}
 
 	private ContentCachingResponseWrapper getResponseWrapper(HttpServletResponse response) {
