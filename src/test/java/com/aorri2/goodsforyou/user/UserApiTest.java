@@ -32,7 +32,7 @@ class UserApiTest extends ApiTest {
 				String url = "/api/v1/users";
 				NewUserRequest request = createNewUserRequest();
 
-				ExtractableResponse<Response> response = 회원_가입_요청(url, request);
+				ExtractableResponse<Response> response = 회원_가입_요청(request);
 
 				assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
 			}
