@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aorri2.goodsforyou.common.annotation.LoginCheck;
 import com.aorri2.goodsforyou.product.application.ProductManagement;
 import com.aorri2.goodsforyou.product.presentation.request.ProductRequest;
 
@@ -24,6 +25,7 @@ public class ProductController {
 		this.productManagement = productManagement;
 	}
 
+	@LoginCheck
 	@PostMapping("/products")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createProduct(@RequestBody @Valid ProductRequest request) {
