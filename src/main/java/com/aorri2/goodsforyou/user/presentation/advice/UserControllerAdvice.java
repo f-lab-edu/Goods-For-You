@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserControllerAdvice {
 
 	@ExceptionHandler(UserException.class)
-	protected ResponseEntity<ErrorResult> handlerUserException(UserException e) {
+	protected ResponseEntity<ErrorResult> handleUserException(UserException e) {
 		ErrorResult result = new ErrorResult("USER-002", e.getMessage());
 		makeExcepetionLog(log, e, result);
 		return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
