@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aorri2.goodsforyou.common.annotation.LoginCheck;
 import com.aorri2.goodsforyou.trade.application.TradeManagement;
 import com.aorri2.goodsforyou.trade.presentation.request.CreateTradeRequest;
 
@@ -24,6 +25,7 @@ public class TradeController {
 		this.tradeManagement = tradeManagement;
 	}
 
+	@LoginCheck
 	@PostMapping("/trade")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createTrade(@RequestBody @Valid CreateTradeRequest request) {
