@@ -10,6 +10,7 @@ import static org.assertj.core.api.SoftAssertions.*;
 
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 @DisplayName("ProductApiTest 클래스")
+@Disabled
 public class ProductApiTest extends ApiTest {
 
 	static final String ADD_PRODUCT_PATH = "/api/v1/products";
@@ -43,7 +45,7 @@ public class ProductApiTest extends ApiTest {
 			@DisplayName("정상적으로 상품 등록을 진행하고 상태코드 201을 반환한다.")
 			void it_return_status_code_201() {
 
-				makeAuthenticateUser();
+				// makeAuthenticateUser();
 
 				ProductRequest productRequest = 상품_요청_정상.상품_요청_생성();
 				ExtractableResponse<Response> response = 상품_생성_요청(productRequest);

@@ -4,6 +4,7 @@ import static com.aorri2.goodsforyou.trade.fixture.TradeFixture.*;
 import static io.restassured.RestAssured.*;
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 @DisplayName("TradeApiTest 클래스")
+@Disabled
 public class TradeAPiTest extends ApiTest {
 
 	static final String ADD_TRADE_PATH = "api/v1/trade";

@@ -29,7 +29,6 @@ class UserApiTest extends ApiTest {
 			@DisplayName("정상적으로 회원가입 동작을 수행한다.")
 			void it_execute_that_register() {
 
-				String url = "/api/v1/users";
 				NewUserRequest request = createNewUserRequest();
 
 				ExtractableResponse<Response> response = 회원_가입_요청(request);
