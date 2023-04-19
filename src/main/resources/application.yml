@@ -29,3 +29,14 @@ mybatis:
 
 logging:
   config: classpath:log4j2.xml
+server:
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: logs/access
+      suffix: .log
+      prefix: access_log
+      file-date-format: .yyyy-MM-dd
+      pattern: combined
+    basedir: .
+
