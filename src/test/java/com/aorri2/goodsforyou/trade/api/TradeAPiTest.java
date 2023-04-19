@@ -6,17 +6,20 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 
 import com.aorri2.goodsforyou.ApiTest;
 import com.aorri2.goodsforyou.trade.TradeSteps;
 import com.aorri2.goodsforyou.trade.presentation.request.CreateTradeRequest;
+import com.aorri2.goodsforyou.utils.DefaultSessionConfig;
 import com.aorri2.goodsforyou.utils.LoginRequestUtil;
 
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 @DisplayName("TradeApiTest 클래스")
+@Import(DefaultSessionConfig.class)
 public class TradeAPiTest extends ApiTest {
 
 	@Nested
