@@ -39,7 +39,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: run gradle build
-        run: ./gradlew build --stactrace
+        run: ./gradlew build --stacktrace
 
       - name: add typos-action as check spell
         uses: crate-ci/typos@v1.0.4
