@@ -36,6 +36,10 @@ K-POP 스타뿐만 아니라 인플루언서 및 스포츠스타들의 굿즈 �
 - [GoodsForYou 패키지 구조에 대한 고민(포트와 어댑터)](https://simgee.tistory.com/41)
 - [CAP 이론을 바탕으로 NoSQL 을 적용 할 만한 포인트 고려](https://simgee.tistory.com/42)
 - [캐싱은 언제 적용하는게 좋을까?](https://simgee.tistory.com/43)
+- [SQL Injection](https://simgee.tistory.com/48)
+- [Builder 패턴?](https://simgee.tistory.com/47)
+- [테스트 커버리지를 70% 이상 유지하면서 느낀점](https://simgee.tistory.com/45)
+- [도커 컴포즈 사용시 DB 초기화 문제 해결 과정](https://simgee.tistory.com/44)
 
 ## Github Action을 통한 CI/CD
 
@@ -50,6 +54,8 @@ K-POP 스타뿐만 아니라 인플루언서 및 스포츠스타들의 굿즈 �
 - Mybatis
 - Redis
 - Docker-Compose
+- Naver Cloud Platform
+
 
 ## 프로젝트 화면 구성
 
