@@ -11,6 +11,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class LoginInterceptor implements HandlerInterceptor {
 
+	/**
+	 * 사용자 로그인 시, 로그인 여부를 확인하는 토큰을 저장한 세션의 key 를 나타내는 상수
+	 */
 	private static final String SESSION_ID = "sessionId";
 
 	@Override
