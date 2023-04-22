@@ -5,6 +5,10 @@
             ERROR=red,
             INFO=green, DEBUG=blue} [%equals{%X{request_id}}{}{startup}] [%C] %style{[%t]}{yellow}- %m%n
         </Property>
+        <Property name="AccessLogPattern">{"traceId" :
+            "%X{request_id}","statusCode":"%X{status_code}","ElapseTime":"%X{elapse_time}",
+            "responseBody":"%X{response_body}"}
+        </Property>
     </Properties>
 
     <Appenders>
@@ -24,6 +28,22 @@
             </Policies>
             <DefaultRolloverStrategy max="20" fileIndex="min"/>
         </RollingFile>
+        <RollingFile name="AccessLogFileAppender"
+                     fileName="logs/access.log"
+                     filePattern="logs/GoodsForYou-%d{yyyy-MM-dd}-%i-access.log">
+            <JsonLayout complete="false" compact="true" charset="UTF-8" eventEol="true">
+                <KeyValuePair key="TraceID" value="$${ctx:request_id:-startUp}"/>
+                <KeyValuePair key="StatusCode" value="$${ctx:status_code:-startUp}"/>
+                <KeyValuePair key="ElapseTime" value="$${ctx:elapse_time:-startUp}"/>
+                <KeyValuePair key="requestBody" value="$${ctx:request_body:-startUp}"/>
+                <KeyValuePair key="responseBody" value="$${ctx:response_body:-startUp}"/>
+            </JsonLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10000KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20" fileIndex="min"/>
+        </RollingFile>
     </Appenders>
 
     <Loggers>
@@ -36,6 +56,7 @@
         <Logger name="com.aorri2" level="DEBUG" additivity="false">
             <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="AccessLogFileAppender"/>
         </Logger>
     </Loggers>
 </Configuration>
