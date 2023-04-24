@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aorri2.goodsforyou.common.annotation.LoginCheck;
 import com.aorri2.goodsforyou.user.application.UserManagement;
 import com.aorri2.goodsforyou.user.presentation.request.LoginUserRequest;
 import com.aorri2.goodsforyou.user.presentation.request.NewUserRequest;
@@ -41,6 +42,7 @@ public class UserController {
 		return ResponseEntity.ok(token);
 	}
 
+	@LoginCheck
 	@GetMapping("/logout")
 	public ResponseEntity<Void> logout() {
 		userManagement.logout();

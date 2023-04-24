@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 @Service
 public class SessionAuthService implements AuthService {
 
+	public static final String SESSION_ID = "sessionId";
 	private final HttpSession session;
 
 	public SessionAuthService(HttpSession session) {
@@ -15,11 +16,11 @@ public class SessionAuthService implements AuthService {
 
 	@Override
 	public void login(String token) {
-		session.setAttribute("sessionId", token);
+		session.setAttribute(SESSION_ID, token);
 	}
 
 	@Override
 	public void logout() {
-		session.removeAttribute("sessionId");
+		session.removeAttribute(SESSION_ID);
 	}
 }

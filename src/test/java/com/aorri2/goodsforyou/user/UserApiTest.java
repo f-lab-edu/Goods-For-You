@@ -6,15 +6,18 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 
 import com.aorri2.goodsforyou.ApiTest;
 import com.aorri2.goodsforyou.user.presentation.request.NewUserRequest;
+import com.aorri2.goodsforyou.utils.DefaultSessionConfig;
 
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 @DisplayName("UserApiTest 클래스")
+@Import(DefaultSessionConfig.class)
 class UserApiTest extends ApiTest {
 
 	@Nested
@@ -29,10 +32,9 @@ class UserApiTest extends ApiTest {
 			@DisplayName("정상적으로 회원가입 동작을 수행한다.")
 			void it_execute_that_register() {
 
-				String url = "/api/v1/users";
 				NewUserRequest request = createNewUserRequest();
 
-				ExtractableResponse<Response> response = 회원_가입_요청(url, request);
+				ExtractableResponse<Response> response = 회원_가입_요청(request);
 
 				assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
 			}

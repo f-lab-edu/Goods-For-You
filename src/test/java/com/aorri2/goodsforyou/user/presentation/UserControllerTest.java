@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.aorri2.goodsforyou.user.application.UserManagement;
@@ -27,6 +28,7 @@ import com.aorri2.goodsforyou.user.application.command.CreateUserCommand;
 import com.aorri2.goodsforyou.user.application.command.LoginUserCommand;
 import com.aorri2.goodsforyou.user.presentation.request.LoginUserRequest;
 import com.aorri2.goodsforyou.user.presentation.request.NewUserRequest;
+import com.aorri2.goodsforyou.utils.SessionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -49,6 +51,7 @@ class UserControllerTest {
 
 	@Autowired
 	private ObjectMapper objectMapper;
+	private MockHttpSession session;
 
 	@Nested
 	@DisplayName("register 메서드는")
@@ -301,13 +304,15 @@ class UserControllerTest {
 			void setUp() {
 				LoginUserRequest loginUserRequest = new LoginUserRequest("!asd@naa.com", "testtesttest");
 				doReturn("FakeToken").when(userManagement).loginUser(loginUserCommandBy(loginUserRequest));
+
+				session = SessionUtil.makeMockSession();
 			}
 
 			@Test
 			@DisplayName("해당 세션 토큰을 삭제하고, 204 상태 코드를 반환한다.")
 			void it_returns_status_code_204() throws Exception {
 				mockMvc
-					.perform(get("/api/v1/logout"))
+					.perform(get("/api/v1/logout").session(session))
 					.andDo(print())
 					.andExpect(status().isNoContent());
 			}
