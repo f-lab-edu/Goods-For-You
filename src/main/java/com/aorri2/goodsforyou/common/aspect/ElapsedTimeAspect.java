@@ -22,7 +22,6 @@ public class ElapsedTimeAspect {
 		String className = joinPoint.getTarget().getClass().getSimpleName();
 		ThreadContext.put("elapse_time", String.valueOf(elapsedTime));
 		log.info("{}.{}() elapsed time {} ms", className, methodName, elapsedTime);
-		ThreadContext.remove("elapse_time");
 		return result;
 	}
 }
