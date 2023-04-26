@@ -40,6 +40,7 @@ K-POP 스타뿐만 아니라 인플루언서 및 스포츠스타들의 굿즈 �
 - [Builder 패턴?](https://simgee.tistory.com/47)
 - [테스트 커버리지를 70% 이상 유지하면서 느낀점](https://simgee.tistory.com/45)
 - [도커 컴포즈 사용시 DB 초기화 문제 해결 과정](https://simgee.tistory.com/44)
+- [테스트 시, Redis Session으로 인해 생긴 문제 해결](https://simgee.tistory.com/51)
 
 ## Github Action을 통한 CI/CD
 
