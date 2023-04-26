@@ -4,7 +4,6 @@ import static java.util.UUID.*;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.ThreadContext;
 import org.slf4j.MDC;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -29,12 +28,17 @@ public class MDCLoggingFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws
 		IOException,
 		ServletException {
+
 		ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper((HttpServletRequest)request);
 		ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(
 			(HttpServletResponse)response);
 
 		MDC.put("request_id", randomUUID().toString());
+		long startTime = System.nanoTime();
 		chain.doFilter(requestWrapper, responseWrapper);
+		long requestElapsedTime = (System.nanoTime() - startTime) / 1_000_000;
+		MDC.put("request_elapsed_time", String.valueOf(requestElapsedTime));
+		log.info("request elapsed time = {}", requestElapsedTime);
 		loggingRequestAndResponse(requestWrapper, responseWrapper);
 		responseWrapper.copyBodyToResponse();
 		MDC.clear();
@@ -45,10 +49,9 @@ public class MDCLoggingFilter implements Filter {
 		String requestBody = new String(requestWrapper.getContentAsByteArray());
 		String responseBody = new String(responseWrapper.getContentAsByteArray());
 
-		ThreadContext.put("request_body", requestBody);
-		ThreadContext.put("response_body", responseBody);
+		MDC.put("request_body", requestBody);
+		MDC.put("response_body", responseBody);
 		log.info("request Body : {}", requestBody);
 		log.info("response Body : {}", responseBody);
-
 	}
 }

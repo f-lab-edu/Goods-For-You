@@ -6,7 +6,7 @@
             INFO=green, DEBUG=blue} [%equals{%X{request_id}}{}{startup}] [%C] %style{[%t]}{yellow}- %m%n
         </Property>
         <Property name="AccessLogPattern">{"traceId" :
-            "%X{request_id}","statusCode":"%X{status_code}","ElapseTime":"%X{elapse_time}",
+            "%X{request_id}","statusCode":"%X{status_code}","requestElapsedTime":"%X{request_elapsed_time}",
             "responseBody":"%X{response_body}"}
         </Property>
     </Properties>
@@ -32,11 +32,12 @@
                      fileName="logs/access.log"
                      filePattern="logs/GoodsForYou-%d{yyyy-MM-dd}-%i-access.log">
             <JsonLayout complete="false" compact="true" charset="UTF-8" eventEol="true">
-                <KeyValuePair key="TraceID" value="$${ctx:request_id:-startUp}"/>
-                <KeyValuePair key="StatusCode" value="$${ctx:status_code:-startUp}"/>
-                <KeyValuePair key="ElapseTime" value="$${ctx:elapse_time:-startUp}"/>
-                <KeyValuePair key="requestBody" value="$${ctx:request_body:-startUp}"/>
-                <KeyValuePair key="responseBody" value="$${ctx:response_body:-startUp}"/>
+                <KeyValuePair key="TraceID" value="$${ctx:request_id:-NA}"/>
+                <KeyValuePair key="requestElapsedTime" value="$${ctx:request_elapsed_time:-NA} ms"/>
+                <KeyValuePair key="StatusCode" value="$${ctx:status_code:-NA}"/>
+                <KeyValuePair key="ElapseTime" value="$${ctx:elapse_time:-NA}"/>
+                <KeyValuePair key="requestBody" value="$${ctx:request_body:-NA}"/>
+                <KeyValuePair key="responseBody" value="$${ctx:response_body:-NA}"/>
             </JsonLayout>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1"/>
