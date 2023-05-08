@@ -21,13 +21,9 @@ public class ProductImage {
 	public ProductImage(
 		long productId,
 		String name,
-		String url,
-		LocalDateTime createdAt,
-		LocalDateTime updatedAt) {
+		String url) {
 		this.productId = productId;
 		this.name = name;
 		this.url = url;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
 }
