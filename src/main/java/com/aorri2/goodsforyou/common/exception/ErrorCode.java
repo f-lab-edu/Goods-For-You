@@ -20,7 +20,7 @@ public enum ErrorCode {
 	NOT_SUPPORTED_FILE_TYPE("지원하는 파일 형식이 아닙니다."),
 
 	//Internal Server Error Code
-	S3_STORAGE_FILE_NOT_UPLOAD("S3 파일 업로드에 실패 했습니다.");
+	FILE_NOT_UPLOAD("파일 업로드에 실패 했습니다.");
 
 	private final String message;
 

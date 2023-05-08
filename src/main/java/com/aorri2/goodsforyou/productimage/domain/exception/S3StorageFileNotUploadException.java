@@ -7,6 +7,6 @@ import com.aorri2.goodsforyou.common.exception.GoodsForyouInternalServerExceptio
 
 public class S3StorageFileNotUploadException extends GoodsForyouInternalServerException {
 	public S3StorageFileNotUploadException(IOException e) {
-		super(ErrorCode.S3_STORAGE_FILE_NOT_UPLOAD, e);
+		super(ErrorCode.FILE_NOT_UPLOAD, e);
 	}
 }
