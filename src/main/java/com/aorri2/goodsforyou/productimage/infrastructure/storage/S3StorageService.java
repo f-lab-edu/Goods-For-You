@@ -4,8 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -14,16 +12,17 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.util.IOUtils;
 import com.aorri2.goodsforyou.productimage.domain.exception.S3StorageFileNotUploadException;
+import com.aorri2.goodsforyou.productimage.infrastructure.storage.config.BucketConfig;
 import com.aorri2.goodsforyou.productimage.util.FileUtils;
 
-@Service
 public class S3StorageService implements StorageService {
 	private final AmazonS3 amazonS3Client;
-	@Value("${aws.s3.bucket}")
-	private String bucket;
 
-	public S3StorageService(AmazonS3 amazonS3Client) {
+	private final String bucket;
+
+	public S3StorageService(AmazonS3 amazonS3Client, BucketConfig bucketConfig) {
 		this.amazonS3Client = amazonS3Client;
+		this.bucket = bucketConfig.getBucket();
 	}
 
 	@Override

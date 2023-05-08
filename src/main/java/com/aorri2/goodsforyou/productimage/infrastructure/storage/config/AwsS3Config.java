@@ -25,9 +25,6 @@ public class AwsS3Config {
 	@Value("${aws.s3.region}")
 	private String region;
 
-	@Value("${aws.s3.bucket}")
-	private String bucket;
-
 	@Bean
 	public AmazonS3 amazonS3Client() {
 		return AmazonS3ClientBuilder.standard()
