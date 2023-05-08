@@ -23,7 +23,7 @@ public class ProductImageController {
 		this.imageFileUploadManagement = imageFileUploadManagement;
 	}
 
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PostMapping("/{productId}/images")
 	public void uploadImages(@PathVariable Long productId, @RequestParam("file") List<MultipartFile> files) {
 		imageFileUploadManagement.upload(productId, files);
