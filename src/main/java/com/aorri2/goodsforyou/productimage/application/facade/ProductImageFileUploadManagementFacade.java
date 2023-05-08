@@ -1,6 +1,5 @@
 package com.aorri2.goodsforyou.productimage.application.facade;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -41,18 +40,17 @@ public class ProductImageFileUploadManagementFacade implements ProductImageFileU
 		imageCreator.saveAll(images);
 	}
 
-	private List<ProductImage> uploadImagesToObjectStorageServer(Long postId, List<MultipartFile> files) {
-		List<ProductImage> images = new ArrayList<>();
+	private List<ProductImage> uploadImagesToObjectStorageServer(Long productId, List<MultipartFile> files) {
 
-		for (MultipartFile file : files) {
-			String storedFileName = FileUtils.getRandomFileName();
-			String filePath = storageService.upload(file, storedFileName);
-			images.add(ProductImage.builder()
-				.productId(postId)
-				.name(storedFileName)
-				.url(filePath)
-				.build());
-		}
-		return images;
+		return files.stream()
+			.map(file -> {
+				String storedFileName = FileUtils.getRandomFileName();
+				String filePath = storageService.upload(file, storedFileName);
+				return ProductImage.builder()
+					.productId(productId)
+					.name(storedFileName)
+					.url(filePath)
+					.build();
+			}).toList();
 	}
 }
