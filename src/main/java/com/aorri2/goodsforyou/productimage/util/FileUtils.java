@@ -13,7 +13,7 @@ public class FileUtils {
 
 	private FileUtils() {
 	}
-	
+
 	public static String getRandomFileName() {
 		return UUID.randomUUID().toString();
 	}
@@ -21,7 +21,7 @@ public class FileUtils {
 	public static String getFilePath(MultipartFile file, String fileName) {
 		String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
 
-		if (!isNotSupportedType(extension)) {
+		if (isNotSupportedType(extension)) {
 			throw new UnSupportedFileTypeException();
 		}
 
