@@ -42,6 +42,9 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.11.238'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    // 자바9 이후 부터 기본 클래스에서 제거, 의존성 수동 등록
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     // 컴파일 시, 롬복 애노테이션 프로세서 체크

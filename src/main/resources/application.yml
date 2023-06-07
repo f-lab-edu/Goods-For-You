@@ -5,7 +5,6 @@ spring:
     redis:
       host: localhost
       port: 6379
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/GoodsForYou
@@ -17,6 +16,8 @@ spring:
       mode: always
       schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql
+  profiles:
+    include: aws
 
 
 mybatis:
@@ -39,4 +40,3 @@ server:
       file-date-format: .yyyy-MM-dd
       pattern: combined
     basedir: .
-

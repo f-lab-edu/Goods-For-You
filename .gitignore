@@ -24,3 +24,5 @@
 
 ## DB 환경변수 파일(id, pwd)
 .env
+
+src/main/resources/application-aws.yml

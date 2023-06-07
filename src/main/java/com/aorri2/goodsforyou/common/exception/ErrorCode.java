@@ -15,7 +15,12 @@ public enum ErrorCode {
 
 	//Trade Error Code
 	ALREADY_SOLD_PRODUCT("이미 판매 완료된 상품 입니다."),
-	;
+
+	//Product Image Error Code
+	NOT_SUPPORTED_FILE_TYPE("지원하는 파일 형식이 아닙니다."),
+
+	//Internal Server Error Code
+	FILE_NOT_UPLOAD("파일 업로드에 실패 했습니다.");
 
 	private final String message;
 
