@@ -1,5 +1,7 @@
 package com.aorri2.goodsforyou.product.infrastructure.mybatis;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.aorri2.goodsforyou.common.annotation.ElapsedTime;
@@ -18,5 +20,10 @@ public class ProductFinderAdapter implements ProductFinder {
 	@Override
 	public Product findById(long productId) {
 		return mapper.findById(productId);
+	}
+
+	@Override
+	public List<Product> findAll() {
+		return mapper.findAll();
 	}
 }

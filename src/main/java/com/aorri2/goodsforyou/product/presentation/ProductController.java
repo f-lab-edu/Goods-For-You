@@ -44,10 +44,8 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.OK)
 	public CommonApiResponse<List<Product>> retrieveProduct() { //TODO : noOffset쿼리로 조회 시, request값 필요할 수도 있음
 		//TODO : List<Product> -> List<ProductResponse>같은 객체 받도록 변환
-		Product product = new Product(1, "상품1", 1000);
-		Product product2 = new Product(1, "상품2", 1000);
-		Product product3 = new Product(1, "상품3", 1000);
-		List<Product> products = List.of(product, product2, product3);
+
+		List<Product> products = productManagement.retrieveProducts();
 
 		return CommonApiResponse.success(products);
 	}
