@@ -1,7 +1,10 @@
 package com.aorri2.goodsforyou.product.api;
 
+import static com.aorri2.goodsforyou.consts.ApiPathConstant.*;
+import static com.aorri2.goodsforyou.consts.SessionConst.*;
 import static com.aorri2.goodsforyou.product.api.ProductSteps.*;
 import static com.aorri2.goodsforyou.product.fixture.ProductFixture.*;
+import static com.aorri2.goodsforyou.user.UserSteps.*;
 import static com.aorri2.goodsforyou.utils.LoginRequestUtil.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.SoftAssertions.*;
@@ -17,11 +20,13 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 import com.aorri2.goodsforyou.ApiTest;
 import com.aorri2.goodsforyou.product.presentation.request.ProductRequest;
 import com.aorri2.goodsforyou.utils.DefaultSessionConfig;
 
+import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
@@ -78,6 +83,51 @@ public class ProductApiTest extends ApiTest {
 			}
 		}
 
+	}
+
+	@Nested
+	@DisplayName("상품 목록 조회 API는")
+	class Describe_product_retrieve_api {
+
+		@Nested
+		@DisplayName("인증이 완료되었고, 상품 목록을 조회한다면")
+		class Context_with_authorized_user_and_retrieve_product_list {
+			@Test
+			@DisplayName("상품 목록을 반환한다")
+			void it_return_product_list() {
+				로그인_완료_상태_생성();
+
+				ExtractableResponse<Response> response = RestAssured.given().log().all()
+					.cookie(SESSION, 로그인_성공_세션_아이디())
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.when()
+					.get(PRODUCT_API_PATH)
+					.then()
+					.log().all().extract();
+
+				assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+				assertThat(response.jsonPath().getString("resultCode")).isEqualTo("SUCCESS");
+				assertThat(response.jsonPath().getString("result")).isNotNull();
+			}
+		}
+
+		@Nested
+		@DisplayName("인증하지 않은 상태에서, 상품 목록을 조회한다면")
+		class Context_with_unAuthorized_user_and_retrieve_product_list {
+			@Test
+			@DisplayName("401 status code를 반환한다")
+			void it_return_401_status_code() {
+
+				ExtractableResponse<Response> response = RestAssured.given().log().all()
+					.contentType(MediaType.APPLICATION_JSON_VALUE)
+					.when()
+					.get(PRODUCT_API_PATH)
+					.then()
+					.log().all().extract();
+
+				assertThat(response.statusCode()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
+			}
+		}
 	}
 
 }
