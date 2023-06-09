@@ -17,7 +17,5 @@ public interface MybatisProductMapper {
 	@Select("select * from PRODUCT where id = #{productId}")
 	Product findById(long productId);
 
-	// TODO : noOffSet 쿼리 적용에 따른 추가 수정 필요
-	@Select("select * from PRODUCT ORDER BY created_at LIMIT 10")
-	List<Product> findAll();
+	List<Product> findAll(Long productId);
 }

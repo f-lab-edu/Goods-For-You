@@ -5,5 +5,5 @@ import java.util.List;
 public interface ProductFinder {
 	Product findById(long productId);
 
-	List<Product> findAll();
+	List<Product> findAll(Long productId);
 }

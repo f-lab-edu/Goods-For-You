@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,10 +43,11 @@ public class ProductController {
 	@LoginCheck
 	@GetMapping("/products")
 	@ResponseStatus(HttpStatus.OK)
-	public CommonApiResponse<List<Product>> retrieveProduct() { //TODO : noOffset쿼리로 조회 시, request값 필요할 수도 있음
+	public CommonApiResponse<List<Product>> retrieveProduct(
+		@RequestParam(required = false) Long productId) { //TODO : noOffset쿼리로 조회 시, request값 필요할 수도 있음
 		//TODO : List<Product> -> List<ProductResponse>같은 객체 받도록 변환
 
-		List<Product> products = productManagement.retrieveProducts();
+		List<Product> products = productManagement.retrieveProducts(productId);
 
 		return CommonApiResponse.success(products);
 	}

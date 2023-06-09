@@ -41,9 +41,9 @@ public class ProductManagementFacadeTest {
 
 				List<Product> expectedProducts = IntStream.range(1, 11).mapToObj(i -> mock(Product.class)).toList();
 
-				given(productFinder.findAll()).willReturn(expectedProducts);
+				given(productFinder.findAll(null)).willReturn(expectedProducts);
 
-				List<Product> products = sut.retrieveProducts();
+				List<Product> products = sut.retrieveProducts(null);
 
 				assertThat(products).hasSameSizeAs(expectedProducts);
 			}

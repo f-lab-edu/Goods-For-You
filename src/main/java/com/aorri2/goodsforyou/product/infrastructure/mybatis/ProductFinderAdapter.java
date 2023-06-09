@@ -23,7 +23,7 @@ public class ProductFinderAdapter implements ProductFinder {
 	}
 
 	@Override
-	public List<Product> findAll() {
-		return mapper.findAll();
+	public List<Product> findAll(Long productId) {
+		return mapper.findAll(productId);
 	}
 }

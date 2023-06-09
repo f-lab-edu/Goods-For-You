@@ -41,7 +41,7 @@ public class ProductManagementFacade implements ProductManagement {
 
 	@Override
 	@Transactional
-	public List<Product> retrieveProducts() {
-		return productFinder.findAll();
+	public List<Product> retrieveProducts(Long productId) {
+		return productFinder.findAll(productId);
 	}
 }

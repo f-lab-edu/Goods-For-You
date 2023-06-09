@@ -11,5 +11,5 @@ public interface ProductManagement {
 
 	Product retriveProduct(long productId);
 
-	List<Product> retrieveProducts();
+	List<Product> retrieveProducts(Long productId);
 }

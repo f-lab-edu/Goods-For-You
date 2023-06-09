@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aorri2.goodsforyou.product.infrastructure.mybatis.MybatisProductMapper">
+
+    <select id="findAll" resultType="Product">
+        SELECT * FROM PRODUCT
+        <where>
+            <if test="id != null">
+                <![CDATA[ id < #{productId} ]]>
+            </if>
+        </where>
+        ORDER BY created_at DESC LIMIT 10
+    </select>
+
+
+</mapper>
