@@ -1,5 +1,7 @@
 package com.aorri2.goodsforyou.product.infrastructure.mybatis;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -14,4 +16,6 @@ public interface MybatisProductMapper {
 
 	@Select("select * from PRODUCT where id = #{productId}")
 	Product findById(long productId);
+
+	List<Product> findAll(Long productId);
 }

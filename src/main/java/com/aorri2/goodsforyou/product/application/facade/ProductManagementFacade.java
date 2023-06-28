@@ -1,5 +1,7 @@
 package com.aorri2.goodsforyou.product.application.facade;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,5 +37,11 @@ public class ProductManagementFacade implements ProductManagement {
 		Product foundProductThroughId = productFinder.findById(productId);
 		productValidator.checkRetriveProductValidity(foundProductThroughId);
 		return foundProductThroughId;
+	}
+
+	@Override
+	@Transactional
+	public List<Product> retrieveProducts(Long productId) {
+		return productFinder.findAll(productId);
 	}
 }

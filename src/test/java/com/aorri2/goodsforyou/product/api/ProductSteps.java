@@ -21,7 +21,7 @@ public class ProductSteps {
 			.contentType(MediaType.APPLICATION_JSON_VALUE)
 			.body(productRequest)
 			.when()
-			.post(ADD_PRODUCT_PATH)
+			.post(PRODUCT_API_PATH)
 			.then()
 			.log().all().extract();
 	}
