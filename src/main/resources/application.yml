@@ -11,19 +11,13 @@ spring:
     username: admin
     password: 1234
 
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        format_sql: true
-    show-sql: true
-  
   sql:
     init:
       mode: always
       schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql
+  profiles:
+    include: aws
 
 
 mybatis:
@@ -36,10 +30,6 @@ mybatis:
 
 logging:
   config: classpath:log4j2.xml
-  level:
-    org:
-      hibernate:
-        SQL: debug
 server:
   tomcat:
     accesslog:
