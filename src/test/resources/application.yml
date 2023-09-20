@@ -7,8 +7,6 @@ spring:
     username: sa
     password:
 
-  profiles:
-    include: aws
 
   sql:
     init:

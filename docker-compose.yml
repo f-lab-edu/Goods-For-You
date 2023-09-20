@@ -12,6 +12,7 @@ services: # 도커 컴포즈에서 사용할 컨테이너들의 집합을 정의
       - 6379:6379
   mysql:
     image: mysql:8.0.27
+    platform: linux/amd64
     cap_add:
       - SYS_NICE
     container_name: mysql
