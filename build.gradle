@@ -15,7 +15,7 @@ repositories {
 
 configurations {
     all {
-        exclude 가group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
 
 }
