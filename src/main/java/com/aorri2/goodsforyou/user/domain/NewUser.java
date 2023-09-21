@@ -1,5 +1,6 @@
 package com.aorri2.goodsforyou.user.domain;
 
+import com.aorri2.goodsforyou.common.entity.BaseEntity;
 import com.aorri2.goodsforyou.common.utils.BcryptPasswordEncoder;
 
 import jakarta.persistence.Column;
@@ -11,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "USER")
-public class NewUser implements User {
+public class NewUser extends BaseEntity implements User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
