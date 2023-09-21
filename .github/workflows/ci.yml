@@ -32,7 +32,7 @@ jobs:
       - run: echo "${{secrets.APPLICATION_AWS}}" > ./src/main/resources/application-aws.yml
 
       - name: AI Code Reviewer
-        uses: aorri2/ai-code-reviewer@main
+        uses: f-lab-edu/ai-code-reviewer@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
