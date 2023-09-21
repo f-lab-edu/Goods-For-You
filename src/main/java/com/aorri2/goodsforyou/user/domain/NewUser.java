@@ -1,12 +1,31 @@
 package com.aorri2.goodsforyou.user.domain;
 
+import com.aorri2.goodsforyou.common.entity.BaseEntity;
 import com.aorri2.goodsforyou.common.utils.BcryptPasswordEncoder;
 
-public class NewUser implements User {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "USER")
+public class NewUser extends BaseEntity implements User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private final String email;
-	private final String name;
-	private final String password;
+	@Column(nullable = false)
+	private String name;
+	@Column(nullable = false, unique = true)
+	private String email;
+	@Column(nullable = false)
+	private String password;
+
+	protected NewUser() {
+
+	}
 
 	public NewUser(String email, String name, String password) {
 		this.email = email;

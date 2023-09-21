@@ -8,6 +8,14 @@ spring:
     password:
 
 
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
   sql:
     init:
       mode: always

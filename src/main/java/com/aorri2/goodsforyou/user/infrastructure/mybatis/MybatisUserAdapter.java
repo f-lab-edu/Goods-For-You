@@ -1,13 +1,8 @@
 package com.aorri2.goodsforyou.user.infrastructure.mybatis;
 
-import org.springframework.stereotype.Repository;
-
-import com.aorri2.goodsforyou.common.annotation.ElapsedTime;
 import com.aorri2.goodsforyou.user.domain.User;
 import com.aorri2.goodsforyou.user.domain.UserRepositoryPort;
 
-@Repository
-@ElapsedTime
 public class MybatisUserAdapter implements UserRepositoryPort {
 
 	private final MybatisUserMapper mapper;
